@@ -8,7 +8,7 @@ import { MenuItem } from '../models/MenuItem';
 })
 export class NavigationService {
    private router = inject(Router);
- 
+  showDesktopPanel = signal(false);
   activeItem = signal('Dashboard=');
   isMobile = signal(window.innerWidth < 768);
   showSearchOverlay = signal(false);
@@ -23,6 +23,8 @@ export class NavigationService {
   private onResize() {
     this.isMobile.set(window.innerWidth < 768);
   }
+      toggleDesktopPanel() { this.showDesktopPanel.set(!this.showDesktopPanel()); }
+    closeDesktopPanel() { this.showDesktopPanel.set(false); }
   closeSearch() {
     // If the history state was pushed by our search, go back to remove it
     if (history.state?.searchOpen) {

@@ -24,3 +24,6 @@
        @if(menuService.showMobileMenu()) {
      <app-menu-items></app-menu-items>
     }
+@if(menuService.showDesktopPanel()){
+  <app-notification></app-notification>
+}

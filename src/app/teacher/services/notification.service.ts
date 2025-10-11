@@ -11,11 +11,26 @@ import { DeviceDetectorService} from 'ngx-device-detector';
   providedIn: 'root'
 })
 export class NotificationService {
+private usernames: string;
+private emails: string;
+private query_tokens: string;
 
-  constructor(private http:HttpClient ,private Routes:Router ,private localstorage :StogageService,private DeviceDetectorService:DeviceDetectorService ){ }
- private readonly  usernames = this.localstorage.teacher_get('teacher_username')
- private readonly  emails = this.localstorage.teacher_get('teacher_email')
- private readonly  query_tokens = this.localstorage.teacher_get('teacher_query_token')
+  constructor(private http:HttpClient ,private Routes:Router ,private localstorage :StogageService,private DeviceDetectorService:DeviceDetectorService ){
+    this.loadUserData();
+   }
+
+private loadUserData() {
+  this.usernames = this.localstorage.teacher_get('teacher_username') || '';
+  this.emails = this.localstorage.teacher_get('teacher_email') || '';
+  this.query_tokens = this.localstorage.teacher_get('teacher_query_token') || '';
+  console.log(this.localstorage.teacher_get('teacher_username'));
+  console.log(this.usernames);
+  console.log(this.localstorage.teacher_get('teacher_email'));
+  console.log(this.emails);
+  console.log(this.localstorage.teacher_get('teacher_query_token') );
+  console.log(this.query_tokens);
+  
+}
 
 know_class(username){
 
@@ -110,10 +125,6 @@ notification(datas:any){
 
 }
   notificationno(){
-
-
-
-
 
     let url = environment.baseurl+`teacher/notification/check-notifaction-all`;
 

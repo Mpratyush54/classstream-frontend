@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SwPush, SwUpdate } from '@angular/service-worker';
 
@@ -10,6 +10,7 @@ import { LoaderService } from '../../loader/loader.service'
 import { CommonModule } from '@angular/common';
 import { AppModule } from 'src/app/app.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { NavigationService } from 'src/app/services/navigation.service';
 @Component({
   selector: 'app-header-desktop',
   templateUrl: './header-desktop.component.html',
@@ -25,7 +26,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 })
 export class HeaderDesktopComponent implements OnInit {
   search;
-  constructor(private service: LogoutService, private Routes: Router, private notification: NotificationService, private SwUpdate: SwUpdate, private swPush: SwPush, private localstorage: StogageService, public loaderservice: LoaderService) {
+   menuService = inject(NavigationService);
+
+  constructor( private Routes: Router, private notification: NotificationService, public loaderservice: LoaderService) {
 
 
   }

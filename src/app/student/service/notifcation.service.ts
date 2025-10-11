@@ -182,14 +182,11 @@ console.log(this.DeviceDetectorService.getDeviceInfo());
   
     }
     notificationall(){
-      
-  
-   
-               
-      
-      
           let url = environment.baseurl+`teacher/notification/check-notifaction-all`;
-      
+        console.log(this.usernames);
+        console.log(this.emails);
+        console.log(this.query_tokens);
+        
           return this.http.post(url ,{
           username:this.usernames,
          email:this.emails  ,
@@ -197,6 +194,7 @@ console.log(this.DeviceDetectorService.getDeviceInfo());
           
             }).pipe(
               map((data: any) => {
+             console.log(data);
              
           if(data.status == true)   {
             if(data.error == false){
@@ -206,6 +204,8 @@ console.log(this.DeviceDetectorService.getDeviceInfo());
           return data.notify
           
               }
+            }else{
+              return []
             }
           }   
           
@@ -237,7 +237,8 @@ console.log(this.DeviceDetectorService.getDeviceInfo());
   
               if(data.status == true)   {
                 if(data.error == false){
-             
+                                 return data
+
                 }
               }   
               

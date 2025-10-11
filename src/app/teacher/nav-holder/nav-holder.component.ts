@@ -7,7 +7,7 @@ import { HeaderMobileComponent } from 'src/app/nav/header-mobile/header-mobile.c
 import { MenuItemsComponent } from 'src/app/asset/menu-items/menu-items.component';
 import { SearchComponent } from 'src/app/asset/search/search.component';
 import { RouterModule } from '@angular/router';
-import { NotificationComponent } from '../notification/notification.component';
+import { NotificationComponent } from 'src/app/asset/notification/notification.component';
 import { NotificationService } from '../services/notification.service';
 
 @Component({
@@ -22,36 +22,15 @@ import { NotificationService } from '../services/notification.service';
     SearchComponent,
     MenuItemsComponent,
     RouterModule,
-    // NotificationComponent
+    NotificationComponent
   ]
 })
 export class NavHolderComponent {
   menuService = inject(NavigationService);
-  notifiactionnumber:number
-notifiactionall
-constructor(private notification:NotificationService){
+
+constructor(){
   
-      this.notification.notificationno().subscribe((res: any) => {
-      console.log(res)
-      if (res == undefined) {
-        
-        this.notifiactionnumber = 0
-      } else {
-        document.getElementById('notification').removeAttribute('style')
 
-        this.notifiactionnumber = res
-
-      }
-
-    })
-    this.notification.notificationall().subscribe((res: any) => {
-      console.log(res)
-
-
-      this.notifiactionall = res
-
-
-    })
 
 }
 
