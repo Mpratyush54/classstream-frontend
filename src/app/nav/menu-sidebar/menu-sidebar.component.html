@@ -1,49 +1,39 @@
-    <aside class="sidebar">
-      <!-- Header Section -->
-      <div class="sidebar-header">
-        <div class="header-logo"></div>
-        <div class="header-text">
-          <h1>Cudemo</h1>
-          <p>Admin Education panel</p>
+  <aside class="sidebar">
+        <!-- Header Section (Desktop Only) -->
+        <div class="sidebar-header">
+          <div class="header-logo"></div>
+          <div class="header-text">
+            <h1>Cudemo</h1>
+            <p>Admin Education panel</p>
+          </div>
         </div>
-      </div>
 
-      <!-- Navigation Menu -->
-      <nav class="sidebar-nav">
-        <!-- Main Menu Section -->
-        <h2 class="menu-heading">Main Menu</h2>
-        <ul class="menu-list">
-          @for (item of mainMenu; track item.name) {
-            <li>
-              <a
-                href="#"
-                (click)="$event.preventDefault(); setActiveItem(item.name,item.url)"
-                class="menu-item"
-                [class.active]="activeItem() === item.name"
-              >
-                <div class="menu-icon" [innerHTML]="item.icon"></div>
-                <span class="menu-text">{{ item.name }}</span>
-              </a>
-            </li>
-          }
-        </ul>
+        <!-- Navigation Menu -->
+        <nav class="sidebar-nav">
+          <!-- Main Menu Section -->
+          <h2 class="menu-heading">Main Menu</h2>
+          <ul class="menu-list">
+            @for (item of menuService.mainMenu; track item.name) {
+              <li>
+                <a (click)="$event.preventDefault(); onNavItemClick(item)" class="menu-item" [class.active]="menuService.activeItem() === item.name">
+                  <div class="menu-icon" [innerHTML]="getSafeHtml(item.icon)"></div>
+                  <span class="menu-text">{{ item.name }}</span>
+                </a>
+              </li>
+            }
+          </ul>
 
-        <!-- Academic Management Section -->
-        <h2 class="menu-heading academic">Academic Management</h2>
-        <ul class="menu-list">
-            @for (item of academicMenu; track item.name) {
-            <li>
-              <a
-                href="#"
-                (click)="$event.preventDefault(); setActiveItem(item.name,item.url)"
-                class="menu-item"
-                [class.active]="activeItem() === item.name"
-              >
-                <div class="menu-icon" [innerHTML]="item.icon"></div>
-                <span class="menu-text">{{ item.name }}</span>
-              </a>
-            </li>
-          }
-        </ul>
-      </nav>
-    </aside>
+          <!-- Academic Management Section (Desktop Only) -->
+          <h2 class="menu-heading academic">Academic Management</h2>
+          <ul class="menu-list academic-list">
+              @for (item of menuService.academicMenu; track item.name) {
+              <li>
+                <a (click)="$event.preventDefault(); onNavItemClick(item)" class="menu-item" [class.active]="menuService.activeItem() === item.name">
+                  <div class="menu-icon" [innerHTML]="getSafeHtml(item.icon)"></div>
+                  <span class="menu-text">{{ item.name }}</span>
+                </a>
+              </li>
+            }
+          </ul>
+        </nav>
+      </aside>

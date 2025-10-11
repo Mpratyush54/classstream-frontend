@@ -16,9 +16,7 @@ import { HeaderMobileComponent } from 'src/app/nav/header-mobile/header-mobile.c
   standalone:true,
   imports:[
     CommonModule, // modules it uses
-    HeaderDesktopComponent,
-    MenuSidebarComponent,
-    HeaderMobileComponent
+
   ]
 })
 export class VideoComponent implements OnInit {

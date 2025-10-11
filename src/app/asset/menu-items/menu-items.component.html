@@ -1,0 +1,36 @@
+<div class="mobile-menu-overlay" (click)="menuService.closeMobileMenu()">
+    <div class="mobile-menu-panel" (click)="$event.stopPropagation()">
+        <div class="panel-header">
+            <h2 class="menu-heading">Main Menu</h2>
+            <button class="close-button" (click)="menuService.closeMobileMenu()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <ul class="menu-list-full">
+            @for (item of menuService.mainMenu; track item.name) {
+            <li>
+                <a (click)="$event.preventDefault(); onMenuItemClick(item.url)" class="menu-item-full"
+                    [class.active]="menuService.activeItem() === item.name">
+                    <div class="menu-icon-full" [innerHTML]="getSafeHtml(item.icon)"></div>
+                    <span class="menu-text-full">{{ item.name }}</span>
+                </a>
+            </li>
+            }
+        </ul>
+        <h2 class="menu-heading academic">Academic Management</h2>
+        <ul class="menu-list-full">
+            @for (item of menuService.academicMenu; track item.name) {
+            <li>
+                <a (click)="$event.preventDefault(); onMenuItemClick(item.url)" class="menu-item-full"
+                    [class.active]="menuService.activeItem() === item.name">
+                    <div class="menu-icon-full" [innerHTML]="getSafeHtml(item.icon)"></div>
+                    <span class="menu-text-full">{{ item.name }}</span>
+                </a>
+            </li>
+            }
+        </ul>
+    </div>
+</div>

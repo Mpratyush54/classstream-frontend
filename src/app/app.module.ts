@@ -88,7 +88,7 @@ import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource,NgbPaginationModule } f
         StudentMenuSidebarComponent,
         PlayComponent,
         IndexComponentvieo,
-        NotificationComponent,
+        
         NewNotificationComponent,
         NotificationdetailsComponent,
         CreateComponent,
@@ -101,6 +101,7 @@ import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource,NgbPaginationModule } f
         EditstudentComponent,
         SetingsComponent,
         ForgotPasswordComponent,
+    NotificationComponent,
         ResetComponent,
         NgbdModalContent,
         LiveComponent,

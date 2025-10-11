@@ -1,0 +1,118 @@
+:host {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+}
+
+.mobile-menu-overlay {
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    animation: fade-in 0.3s;
+}
+
+.mobile-menu-panel {
+    background: white;
+    width: 100%;
+    /* max-width: 320px; */
+    height: 100%;
+    padding: 1.5rem;
+    animation: slide-in-right 0.3s ease-out;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slide-in-right {
+    from {
+    transform: translateX(100%); /* Starts 100% of its own width to the right */
+    }
+
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.menu-heading {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    margin: 0;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #9ca3af;
+    padding: 0.5rem;
+}
+
+.close-button svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.menu-heading.academic {
+    margin-top: 1.5rem;
+}
+
+.menu-list-full {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-list-full>li+li {
+    margin-top: 0.5rem;
+}
+
+.menu-item-full {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    color: #4b5563;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.menu-item-full.active {
+    background-color: #f3f4f6;
+    color: #111827;
+    font-weight: 700;
+}
+
+.menu-icon-full {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #9ca3af;
+}
+
+.menu-item-full.active .menu-icon-full {
+    color: #111827;
+}
+
+.menu-text-full {
+    font-size: 1rem;
+}

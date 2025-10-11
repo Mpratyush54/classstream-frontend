@@ -1,49 +1,37 @@
-<header class="header-mobile d-block d-lg-none">
-    <div class="header-mobile__bar">
-        <div class="container-fluid">
-            <div class="header-mobile-inner">
-                <a class="logo">
-                    <img src="assets/images/icon/logo.png" alt="CoolAdmin" />
-                </a>
-                <button class="hamburger hamburger--slider" [ngClass]="{'is-active':mobilenavs ==true,'*':mobilenavs == false }" (click)="mobilenav() ">
-                        <span class="hamburger-box ">
-                            <span class="hamburger-inner "></span>
-                        </span>
-                    </button>
+<header class="mobile-header">
+      <div class="header-logo"></div>
+      <div class="header-title"> CUDEMO-415 </div>
+      <div class="notification">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" /></svg>
+        <span class="notification-badge">3</span>
+      </div>
+    </header>
+    <aside class="bottom-nav-container">
+        <a (click)="$event.preventDefault(); menuService.openSearch()"
+           class="nav-button search-button"
+           [class.active]="menuService.showSearchOverlay()">
+            <div class="icon-wrapper" >
+                <div class="image-wrapper" [innerHTML]="getSafeHtml(menuService.getIconSvg('search'))">
+
+                </div>
             </div>
-        </div>
-    </div>
-    <nav class="navbar-mobile ">
-        <div class="container-fluid ">
-            <ul class="navbar-mobile__list list-unstyled ">
+        </a>
 
-                <li>
-                    <a (click)="teacherroute('teacher')">
-                        <i class="fas fa-tachometer-alt "></i>Dashboard</a>
-                </li>
-                <li>
-                    <a (click)="teacherroute('teacher/videos')">
-                        <i class="fas fa-caret-square-o-right "></i>Videos</a>
-                </li>
+        <nav class="nav-pill">
+            <ul class="menu-list">
+                @for (item of menuService.pillNavItems(); track item.name) {
+                    <li>
+                        <a (click)="$event.preventDefault(); onNavItemClick(item)"
+                           class="nav-button pill-item"
+                           [class.active]="menuService.activeItem() === item.name">
+                            <div class="icon-wrapper" >
+                                <div class="image-wrapper"[innerHTML]="getSafeHtml(item.icon)">
 
-                <li>
-                    <a (click)="teacherroute('/teacher/notes')">
-                        <i class="fas fa-caret-square-o-right "></i>Notes</a>
-                </li>
-                <li>
-                    <a (click)="teacherroute('/teacher/notification')">
-                        <i class="fas fa-caret-square-o-right "></i>Send Notification</a>
-                </li>
-                <li>
-                    <a (click)="teacherroute('/teacher/live')">
-                        <i class="fas fa-caret-square-o-right "></i>Live Class</a>
-                </li>
-                <!-- <li>
-                    <a (click)="teacherroute('/teacher/student')">
-                        <i class="fas fa-caret-square-o-right "></i>Manage Students</a>
-                </li> -->
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                }
             </ul>
-        </div>
-    </nav>
-
-</header>
+        </nav>
+    </aside>

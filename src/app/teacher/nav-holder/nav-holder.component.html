@@ -1,0 +1,26 @@
+@if(menuService.isMobile()){
+
+  <app-header-mobile></app-header-mobile>
+          <main class="mobile-main-content">
+<router-outlet></router-outlet>
+          </main>
+
+} @else{
+<div class="page-wrapper">
+  
+  <app-header-desktop> </app-header-desktop>
+  <app-menu-sidebar></app-menu-sidebar>
+
+
+    <div class="main-content ">
+<router-outlet></router-outlet>
+    </div>
+</div>
+}
+@if(menuService.showSearchOverlay()) {
+      <app-search></app-search>
+    }
+
+       @if(menuService.showMobileMenu()) {
+     <app-menu-items></app-menu-items>
+    }

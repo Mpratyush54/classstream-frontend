@@ -28,26 +28,34 @@ import { VideoUploadComponent } from './teacher/video-upload/video-upload.compon
 import { VideoComponent } from './teacher/video/video.component';
 
 const routes: Routes = [
-  {
+  { 
     path: 'teacher' ,
     canActivate:[AuthGuard],
-    loadComponent:()=> import('./teacher/index/index.component').then(m =>m.IndexComponent )
+    loadComponent:()=> import('./teacher/nav-holder/nav-holder.component').then(m =>m.NavHolderComponent ),
+    children:[
+      {
+    path: '' ,
+    loadComponent:()=>import('./teacher/index/index.component').then(m=>m.IndexComponent),
+    pathMatch:"full"
    },
   {
-    path: 'teacher/videos' ,
-    canActivate:[AuthGuard], 
+    path: 'videos' ,
     loadComponent:()=>import('./teacher/video/video.component').then(m=>m.VideoComponent),
    },
-  {path: 'teacher/notes' ,canActivate:[AuthGuard], component: NotesComponent },
-  {path: 'teacher/notes-add' ,canActivate:[AuthGuard], component: NotesAddComponent },
-  {path: 'teacher/video-upload' ,canActivate:[AuthGuard], component: VideoUploadComponent },
-  {path: 'teacher/video-upload-file/:id' ,canActivate:[AuthGuard], component: VideoUploadFileComponent },
-  {path: 'teacher/videos/play/:id' ,canActivate:[AuthGuard], component: VideoPlayActualComponent },
-  {path: 'teacher/notification' ,canActivate:[AuthGuard], component: NotificationComponent },
-  {path: 'teacher/notification/:id' ,canActivate:[AuthGuard], component: NotificationdetailsComponent },
-  {path: 'teacher/new-notification' ,canActivate:[AuthGuard], component: NewNotificationComponent },
-  {path: 'teacher/live' ,canActivate:[AuthGuard], component: IndexLiveComponent },
-  {path: 'teacher/live/:id' ,canActivate:[AuthGuard], component: CreateComponent },
+  {path: 'notes' , component: NotesComponent },
+  {path: 'notes-add' , component: NotesAddComponent },
+  {path: 'video-upload' ,component: VideoUploadComponent },
+  {path: 'video-upload-file/:id' , component: VideoUploadFileComponent },
+  {path: 'videos/play/:id' , component: VideoPlayActualComponent },
+  {path: 'notification' ,component: NotificationComponent },
+  {path: 'notification/:id' , component: NotificationdetailsComponent },
+  {path: 'new-notification' , component: NewNotificationComponent },
+  {path: 'live' , component: IndexLiveComponent },
+  {path: 'live/:id' , component: CreateComponent },
+    ]
+   },
+   
+ 
   // {path: 'teacher/student' ,canActivate:[AuthGuard], component: IndexComponentStudent },
   // {path: 'teacher/student/edit/:id' ,canActivate:[AuthGuard], component: EditstudentComponent },
   // teacher/notification
