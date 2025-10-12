@@ -197,7 +197,7 @@
                     <span class="notification-badge">{{notificationService.unreadCount()}}</span>
 
           </div>
-          <div class="profile-image">
+          <div class="profile-image" (click)="ProfileService.toggleDesktopPanel()">
              <!-- Replaced local asset path with a placeholder URL -->
              <img src="https://i.ibb.co/6bs2tY7/image-e24de2.png" alt="User Avatar" onerror="this.onerror=null;this.src='https://placehold.co/36x36/94a3b8/ffffff?text=U';" />
           </div>

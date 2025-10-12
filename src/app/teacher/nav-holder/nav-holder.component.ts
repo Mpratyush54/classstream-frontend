@@ -9,6 +9,8 @@ import { SearchComponent } from 'src/app/asset/search/search.component';
 import { RouterModule } from '@angular/router';
 import { NotificationComponent } from 'src/app/asset/notification/notification.component';
 import { NotificationService } from '../services/notification.service';
+import { ProfileService } from 'src/app/services/profile.service';
+import { ProfileComponent } from 'src/app/asset/profile/profile.component';
 
 @Component({
   selector: 'app-nav-holder',
@@ -22,12 +24,14 @@ import { NotificationService } from '../services/notification.service';
     SearchComponent,
     MenuItemsComponent,
     RouterModule,
-    NotificationComponent
+    NotificationComponent,
+    ProfileComponent
   ]
 })
 export class NavHolderComponent {
   menuService = inject(NavigationService);
-
+  ProfileService = inject(ProfileService);
+// ProfileService
 constructor(){
   
 

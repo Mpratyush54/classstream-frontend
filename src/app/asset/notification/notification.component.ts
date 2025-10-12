@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { SwPush } from '@angular/service-worker';
 import { LoaderService } from 'src/app/loader/loader.service';
@@ -16,7 +16,6 @@ import { StogageService } from 'src/app/services/stogage.service';
 })
 export class NotificationComponent {
 notificationService = inject(NotificationMapService);
-constructor(){}
 menuItems = inject(NavigationService);
 
 onNotificationClick(notification: NotificationItem) {
@@ -31,4 +30,15 @@ onNotificationClick(notification: NotificationItem) {
    goBack() {
     this.menuItems.closeDesktopPanel();
   }
+    @HostListener('window:keydown.escape', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    if (this.menuItems.showDesktopPanel()) this.menuItems.closeDesktopPanel();
+  }
+constructor(){
+      window.addEventListener('popstate', () => {
+           if (this.menuItems.showDesktopPanel()) this.menuItems.closeDesktopPanel();
+
+    });
+}
+
 }

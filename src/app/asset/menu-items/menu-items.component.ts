@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NavigationService } from 'src/app/services/navigation.service';
 
@@ -16,4 +16,16 @@ export class MenuItemsComponent {
         this.menuService.navigate(url);
         this.menuService.closeMobileMenu();
     }
+      @HostListener('window:keydown.escape', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    if (this.menuService.showMobileMenu()) this.menuService.closeMobileMenu();
+  }
+  constructor(){
+        window.addEventListener('popstate', () => {
+           if (this.menuService.showMobileMenu()) this.menuService.closeMobileMenu();
+
+    });
+
+  }
+
 }

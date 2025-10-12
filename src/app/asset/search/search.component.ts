@@ -19,4 +19,12 @@ export class SearchComponent {
       this.menuService.closeSearch();
     }
   }
+
+constructor(){
+      window.addEventListener('popstate', () => {
+ if (this.menuService.showSearchOverlay()) {
+      this.menuService.closeSearch();
+    }
+    });
+}
 }

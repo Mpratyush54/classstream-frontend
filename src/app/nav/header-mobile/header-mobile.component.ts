@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MenuItem } from 'src/app/models/MenuItem';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { NotificationMapService } from 'src/app/services/notification-map.service';
+import { ProfileService } from 'src/app/services/profile.service';
 
 // Define MenuItem type or import it from its module
 
@@ -21,6 +22,7 @@ import { NotificationMapService } from 'src/app/services/notification-map.servic
 })
 export class HeaderMobileComponent implements OnInit {
 notificationService = inject(NotificationMapService);
+ProfileService = inject(ProfileService);
 
   constructor(private Routes:Router) { }
 

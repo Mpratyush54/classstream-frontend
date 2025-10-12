@@ -12,6 +12,7 @@ import { AppModule } from 'src/app/app.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { NotificationMapService } from 'src/app/services/notification-map.service';
+import { ProfileService } from 'src/app/services/profile.service';
 @Component({
   selector: 'app-header-desktop',
   templateUrl: './header-desktop.component.html',
@@ -29,6 +30,7 @@ export class HeaderDesktopComponent implements OnInit {
   search;
    menuService = inject(NavigationService);
 notificationService = inject(NotificationMapService);
+ProfileService = inject(ProfileService);
 
   constructor( private Routes: Router, private notification: NotificationService, public loaderservice: LoaderService) {
 

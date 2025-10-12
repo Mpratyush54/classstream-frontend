@@ -1,1 +1,53 @@
-<p>profile works!</p>
+@if(menuItems.isMobile()){
+    <div class="mobile-profile-screen">
+  <header class="screen-header">
+    <button class="back-button" (click)="ProfileService.closeDesktopPanel()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+    <h2>My Profile</h2>
+  </header>
+  <div class="profile-content">
+    <div class="profile-header">
+        <div class="avatar">
+            <img src="https://i.ibb.co/6bs2tY7/image-e24de2.png" alt="User Avatar" />
+        </div>
+        <div class="user-info">
+            <h3>{{ authService.teacher_get('teacher_username') }}</h3>
+            <p>{{ authService.teacher_get('teacher_email') }}</p>
+        </div>
+    </div>
+
+    <ul class="profile-menu">
+        <li><a href="#">Edit Profile</a></li>
+        <li><a href="#">Account Settings</a></li>
+        <li><a href="#">Help & Support</a></li>
+    </ul>
+
+    <button class="logout-button" (click)="logout()">Logout</button>
+  </div>
+</div>
+
+}@else {
+    <div class="profile-panel">
+  <div class="panel-header">
+    <div class="avatar">
+        <img src="https://i.ibb.co/6bs2tY7/image-e24de2.png" alt="User Avatar" />
+    </div>
+    <div class="user-info">
+      <h3>{{ authService.teacher_get('teacher_username') }}</h3>
+      <p>{{ authService.teacher_get('teacher_email') }}</p>
+    </div>
+  </div>
+  <ul class="profile-menu">
+    <li><a href="#">My Profile</a></li>
+    <li><a href="#">Settings</a></li>
+    <li><a href="#">Help</a></li>
+  </ul>
+  <div class="panel-footer">
+    <button (click)="logout()">Logout</button>
+  </div>
+</div>
+
+}
