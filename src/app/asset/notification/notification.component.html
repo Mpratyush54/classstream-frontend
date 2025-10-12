@@ -1,5 +1,28 @@
 @if(menuItems.isMobile()){
-
+<div class="mobile-notification-screen" [class.is-closing]="!menuItems.showDesktopPanel()">
+  <header class="screen-header">
+    <button class="back-button" (click)="goBack()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+    <h2>Notifications</h2>
+  </header>
+  <ul class="notification-list">
+    @for(notification of notificationService.notifications(); track notification.id) {
+      <li [class.unread]="!notification.read" (click)="notificationService.markAsRead(notification.id)">
+        <div class="dot"></div>
+        <div class="content">
+          <p class="title">{{ notification.title }}</p>
+          <p class="body">{{ notification.body }}</p>
+          <p class="time">{{ notification.time }}</p>
+        </div>
+      </li>
+    } @empty {
+      <li class="empty-state">No notifications yet.</li>
+    }
+  </ul>
+</div>
 }@else {
      <div class="notification-panel">
       <div class="panel-header">
@@ -10,7 +33,7 @@
           <li [class.unread]="!notification.read" (click)="notificationService.markAsRead(notification.id)">
             <div class="dot"></div>
             <div class="content">
-              <p class="title">{{ notification.body }}</p>
+              <p class="title">{{ notification.title }}</p>
               <p class="time">{{ notification.time }}</p>
             </div>
           </li>

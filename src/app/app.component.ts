@@ -1,7 +1,8 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, inject } from '@angular/core';
 // import { PlyrComponent } from 'ngx-plyr';
 import { LoaderService } from './loader/loader.service';
 import{HlsjsPlyrDriver} from './student/video/play-setup/play-setup.component'
+import { PushnotificationService } from './services/pushnotification.service';
 
 @Component({
   selector: 'app-root',
@@ -9,46 +10,15 @@ import{HlsjsPlyrDriver} from './student/video/play-setup/play-setup.component'
   styleUrls: ['./app.component.css'],
   standalone:false
 })
-export class AppComponent{
+export class AppComponent implements OnInit{
+    pushService = inject(PushnotificationService);
 
   title = 'school';
   constructor(  public loaderservice:LoaderService  ) {}
-  plyr1: Plyr;
-  plyr2: Plyr;
-
-  options: Plyr.Options = {
-    captions: { active: true, update: true, language: 'en' },
-    settings: ['quality', 'speed', 'loop'],
-    quality: {
-      default: 360,
-      options: [ 1080, 720, 480, 360]
-    }
-
-
-  };
-
-  poster = 'https://bitdash-a.akamaihd.net/content/sintel/poster.png';
-
-  sources: Plyr.Source[] = [{
-    type: 'video',
-    src: 'http://localhost:8000/live/teast_stram/index.m3u8    ',
-  }];
-
-  hlsjsDriver1 = new HlsjsPlyrDriver(true);
-
-  hlsjsDriver2 = new HlsjsPlyrDriver(false);
-
-
-
-
-
-  languageChanged(driver: HlsjsPlyrDriver, plyr: Plyr) {
-    setTimeout(() => driver.hls.subtitleTrack = plyr.currentTrack, 50);
+  ngOnInit(): void {
+        this.pushService.init(); 
   }
 
-  played() {
-    this.hlsjsDriver2.load(this.sources[0].src);
-  }
 
 
 

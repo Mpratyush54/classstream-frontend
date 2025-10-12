@@ -9,6 +9,7 @@ import { MenuItem } from '../models/MenuItem';
 export class NavigationService {
    private router = inject(Router);
   showDesktopPanel = signal(false);
+
   activeItem = signal('Dashboard=');
   isMobile = signal(window.innerWidth < 768);
   showSearchOverlay = signal(false);

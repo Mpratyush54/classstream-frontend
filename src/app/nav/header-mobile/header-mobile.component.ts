@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { MenuItem } from 'src/app/models/MenuItem';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { NotificationMapService } from 'src/app/services/notification-map.service';
 
 // Define MenuItem type or import it from its module
 
@@ -19,6 +20,7 @@ import { NavigationService } from 'src/app/services/navigation.service';
   ]
 })
 export class HeaderMobileComponent implements OnInit {
+notificationService = inject(NotificationMapService);
 
   constructor(private Routes:Router) { }
 
