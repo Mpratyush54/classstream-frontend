@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, NgZone, signal } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { MenuItem } from '../models/MenuItem';
@@ -7,25 +7,31 @@ import { MenuItem } from '../models/MenuItem';
   providedIn: 'root'
 })
 export class NavigationService {
-   private router = inject(Router);
+  private router = inject(Router);
   showDesktopPanel = signal(false);
+  private _width = signal(window.innerWidth);
+  readonly isMobileSignal = computed(() => this._width() <= 768);
 
   activeItem = signal('Dashboard=');
-  isMobile = signal(window.innerWidth < 768);
   showSearchOverlay = signal(false);
   showMobileMenu = signal(false);
   openSearch() {
     if (!this.showSearchOverlay()) {
-        history.pushState({ searchOpen: true }, '');
-        this.showSearchOverlay.set(true);
+      history.pushState({ searchOpen: true }, '');
+      this.showSearchOverlay.set(true);
     }
   }
-  
-  private onResize() {
-    this.isMobile.set(window.innerWidth < 768);
+
+  isMobile(): boolean {
+    return this.isMobileSignal();
   }
-      toggleDesktopPanel() { this.showDesktopPanel.set(!this.showDesktopPanel()); }
-    closeDesktopPanel() { this.showDesktopPanel.set(false); }
+
+  toggleDesktopPanel() {
+    this.showDesktopPanel.set(!this.showDesktopPanel());
+  }
+  closeDesktopPanel() {
+    this.showDesktopPanel.set(false);
+  }
   closeSearch() {
     // If the history state was pushed by our search, go back to remove it
     if (history.state?.searchOpen) {
@@ -34,35 +40,54 @@ export class NavigationService {
       // Otherwise, just hide the overlay (e.g., closed via Esc)
       this.showSearchOverlay.set(false);
     }
-  }  constructor() {
+  } constructor(private zone: NgZone) {
     // Listen to router events to automatically set the active item
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-   const allMenuItems = [...this.mainMenu, ...this.academicMenu];
-        
-        // Sort items by URL length descending to find the most specific match first
-        const sortedItems = allMenuItems.sort((a, b) => b.url.length - a.url.length);
-        
-        const matchingItem = sortedItems.find(item => event.urlAfterRedirects.startsWith(item.url));
-        
-        this.activeItem.set(matchingItem?.name || 'Dashboard');
+      const allMenuItems = [...this.mainMenu, ...this.academicMenu];
+
+      // Sort items by URL length descending to find the most specific match first
+      const sortedItems = allMenuItems.sort((a, b) => b.url.length - a.url.length);
+
+      const matchingItem = sortedItems.find(item => event.urlAfterRedirects.startsWith(item.url));
+
+      this.activeItem.set(matchingItem?.name || 'Dashboard');
     });
-    window.addEventListener('resize', this.onResize.bind(this));
+    window.addEventListener('resize', () => {
+      this.zone.run(() => {
+        const width = window.innerWidth;
+        this._width.set(width);
+
+        console.log('raw window.innerWidth', width);
+        console.log('📱 isMobileSignal:', this.isMobileSignal()); // now correct ✅
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      console.log('raw window.innerWidth', window.innerWidth);
+      console.log('📱 isMobileSignal:', this.isMobileSignal());
+
+    });
+
+    effect(() => {
+      console.log('📱 isMobileSignal:', this.isMobileSignal());
+    });
+
     // Listen for browser back button action to close overlays
     window.addEventListener('popstate', () => {
-        if (this.showSearchOverlay()) this.showSearchOverlay.set(false);
-        if (this.showMobileMenu()) this.showMobileMenu.set(false);
+      if (this.showSearchOverlay()) this.showSearchOverlay.set(false);
+      if (this.showMobileMenu()) this.showMobileMenu.set(false);
     });
   }
 
 
-    pillNavItems = computed(() => {
+  pillNavItems = computed(() => {
     return [
-        this.mainMenu.find(i => i.name === 'Dashboard'),
-        this.mainMenu.find(i => i.name === 'Videos'),
-        this.mainMenu.find(i => i.name === 'Notes'),
-        { name: 'More', icon: this.getIconSvg('more'), url: 'more' }
+      this.mainMenu.find(i => i.name === 'Dashboard'),
+      this.mainMenu.find(i => i.name === 'Videos'),
+      this.mainMenu.find(i => i.name === 'Notes'),
+      { name: 'More', icon: this.getIconSvg('more'), url: 'more' }
     ].filter(Boolean) as MenuItem[];
   });
   // Computed signal to derive the items for the mobile bottom nav
@@ -70,23 +95,23 @@ export class NavigationService {
     const dashboardItem = this.mainMenu.find(item => item.name === 'Dashboard');
     const currentActiveItem = [...this.mainMenu, ...this.academicMenu].find(item => item.name === this.activeItem());
     const moreItem = { name: 'More', icon: this.getIconSvg('more'), url: 'more' };
-    
-    let middleItem = (currentActiveItem && currentActiveItem.name !== 'Dashboard') 
-      ? currentActiveItem 
+
+    let middleItem = (currentActiveItem && currentActiveItem.name !== 'Dashboard')
+      ? currentActiveItem
       : this.mainMenu.find(item => item.name === 'Videos');
 
     return [dashboardItem, middleItem, moreItem].filter(Boolean) as MenuItem[];
   });
   openMobileMenu() {
     if (!this.showMobileMenu()) {
-        history.pushState({ overlay: 'menu' }, '');
-        this.showMobileMenu.set(true);
+      history.pushState({ overlay: 'menu' }, '');
+      this.showMobileMenu.set(true);
     }
-    
+
   }
   closeMobileMenu() {
-     if (history.state?.overlay === 'menu') history.back();
-     else this.showMobileMenu.set(false);
+    if (history.state?.overlay === 'menu') history.back();
+    else this.showMobileMenu.set(false);
 
   }
 
@@ -111,11 +136,11 @@ export class NavigationService {
   }
 
   readonly mainMenu: MenuItem[] = [
-    { name: 'Dashboard', icon: this.getIconSvg('dashboard'), url:'/teacher' },
-    { name: 'Videos', icon: this.getIconSvg('videos'), url:'/teacher/videos' },
-    { name: 'Notes', icon: this.getIconSvg('notes'), url:'/teacher/notes' },
-    { name: 'Send Notification', icon: this.getIconSvg('notification'),url:'/teacher/notification' },
-    { name: 'Live', icon: this.getIconSvg('live'),url:'/teacher/live' },
+    { name: 'Dashboard', icon: this.getIconSvg('dashboard'), url: '/teacher' },
+    { name: 'Videos', icon: this.getIconSvg('videos'), url: '/teacher/videos' },
+    { name: 'Notes', icon: this.getIconSvg('notes'), url: '/teacher/notes' },
+    { name: 'Send Notification', icon: this.getIconSvg('notification'), url: '/teacher/notification' },
+    { name: 'Live', icon: this.getIconSvg('live'), url: '/teacher/live' },
   ];
 
   readonly academicMenu: MenuItem[] = [

@@ -1,0 +1,1 @@
+export type MessageArray = Array<{ user: String, message: String }>

@@ -21,11 +21,12 @@ import { NotificationComponent } from './teacher/notification/notification.compo
 import { NotificationdetailsComponent } from './teacher/notificationdetails/notificationdetails.component';
 import { EditstudentComponent } from './teacher/studentadd/editstudent/editstudent.component';
 import { IndexComponentStudent } from './teacher/studentadd/index/index.component';
-import { VideoPlayActualComponent } from './teacher/video-play-actual/video-play-actual.component';
+// import { VideoPlayActualComponent } from './teacher/video-play-actual/video-play-actual.component';
 
 import { VideoUploadFileComponent } from './teacher/video-upload-file/video-upload-file.component';
 import { VideoUploadComponent } from './teacher/video-upload/video-upload.component';
 import { VideoComponent } from './teacher/video/video.component';
+import { VideoPlayerWrapperComponent } from './teacher/video.player.wrapper/video.player.wrapper.component';
 
 const routes: Routes = [
   { 
@@ -46,7 +47,10 @@ const routes: Routes = [
   {path: 'notes-add' , component: NotesAddComponent },
   {path: 'video-upload' ,component: VideoUploadComponent },
   {path: 'video-upload-file/:id' , component: VideoUploadFileComponent },
-  {path: 'videos/play/:id' , component: VideoPlayActualComponent },
+  {
+    path: 'videos/play/:id' ,
+        loadComponent:()=>import('./teacher/video.player.wrapper/video.player.wrapper.component').then(m=>m.VideoPlayerWrapperComponent),
+  },
   {path: 'notification' ,component: NotificationComponent },
   {path: 'notification/:id' , component: NotificationdetailsComponent },
   {path: 'new-notification' , component: NewNotificationComponent },

@@ -1,0 +1,101 @@
+<!-- DESKTOP: Table view -->
+<div *ngIf="!navigationService.isMobileSignal(); else mobileView" class="table-wrapper ">
+  <div class="table-toolbar">
+    <mat-icon>search</mat-icon>
+    <input matInput placeholder="Search..." [(ngModel)]="searchTerm" (input)="applyFilter()"
+      class="table-search-input" />
+  </div>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 full-width-table">
+    <!-- Dynamic data columns -->
+    <ng-container *ngFor="let col of columns" [ngSwitch]="col.type">
+      <ng-container *ngIf="col.type !== 'Buttons'" [matColumnDef]="col.key">
+
+        <th mat-header-cell *matHeaderCellDef [mat-sort-header]="col.sortable !== false ? col.key : null">
+          {{ col.displayName }}
+        </th>
+
+        <td mat-cell *matCellDef="let row">
+          <ng-container [ngSwitch]="col.type">
+            <img *ngSwitchCase="'Image'" [src]="row[col.key]" class="table-img" alt="img" />
+            <span *ngSwitchCase="'Date'">{{ formatDate(row[col.key]) }}</span>
+            <span *ngSwitchCase="'DateTime'">{{ formatDate(row[col.key]) }}</span>
+            <span *ngSwitchCase="'HTML'" [innerHTML]="row[col.key]"></span>
+            <span *ngSwitchDefault>{{ row[col.key] }}</span>
+          </ng-container>
+        </td>
+      </ng-container>
+    </ng-container>
+
+    <!-- Actions column (only once, at the end) -->
+    <ng-container *ngIf="hasActions" matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let row">
+        <div class="actions-cell">
+          <button *ngFor="let btn of actionButtons" mat-raised-button [color]="btn.color || 'primary'"
+            (click)="onButtonClick(btn.action, row)">
+            <mat-icon *ngIf="btn.icon">{{ btn.icon }}</mat-icon>
+            {{ btn.label }}
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsKeys"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsKeys;"></tr>
+  </table>
+
+  <mat-paginator #desktopPaginator [pageSizeOptions]="[ 10, 25,50]" [pageSize]="10" showFirstLastButtons>
+  </mat-paginator>
+</div>
+
+<!-- MOBILE: Card view -->
+<ng-template #mobileView>
+  <div class="mobile-wrapper">
+    <div class="table-toolbar">
+      <mat-icon>search</mat-icon>
+      <input matInput placeholder="Search..." [(ngModel)]="searchTerm" (input)="applyFilter()" />
+    </div>
+
+    <div class="mobile-cards">
+      <div *ngFor="let row of mobilePageData" class="mobile-card mat-elevation-z2">
+        <div *ngFor="let col of columns" class="card-row">
+          <div class="label" *ngIf="col.type !== 'Buttons'">{{ col.displayName }}</div>
+          <div class="value" [ngSwitch]="col.type">
+            <img *ngSwitchCase="'Image'" [src]="row[col.key]" class="card-img" alt="img" />
+            <span *ngSwitchCase="'Date'">{{ formatDate(row[col.key]) }}</span>
+            <span *ngSwitchCase="'DateTime'">{{ formatDate(row[col.key]) }}</span>
+            <span *ngSwitchCase="'HTML'" [innerHTML]="row[col.key]"></span>
+            <ng-container *ngIf="col.type !== 'Buttons'">
+              <span *ngSwitchDefault>{{ row[col.key] }}</span>
+            </ng-container>
+
+            <!-- Actions (buttons) -->
+            <div *ngSwitchCase="'Buttons'" class="actions-cell mobile">
+            <button
+  *ngFor="let btn of actionButtons"
+  mat-raised-button
+  class="custom-action-button"
+  [attr.data-bg]="btn.color || '#3f51b5'"
+  [attr.data-fg]="btn.textColor || '#fff'"
+  (click)="onButtonClick(btn.action, row)"
+>
+  <mat-icon *ngIf="btn.icon" style="margin-right: 4px;">{{ btn.icon }}</mat-icon>
+  {{ btn.label }}
+</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom paginator for mobile -->
+    <div class="bottom-paginator">
+      <mat-paginator [length]="dataSource.filteredData?.length || dataSource.data.length" [pageSize]="mobilePageSize"
+        [pageIndex]="mobilePageIndex" [pageSizeOptions]="mobilePageSizeOptions" (page)="onMobilePage($event)"
+        showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  </div>
+</ng-template>

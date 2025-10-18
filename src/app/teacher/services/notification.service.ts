@@ -23,13 +23,7 @@ private loadUserData() {
   this.usernames = this.localstorage.teacher_get('teacher_username') || '';
   this.emails = this.localstorage.teacher_get('teacher_email') || '';
   this.query_tokens = this.localstorage.teacher_get('teacher_query_token') || '';
-  console.log(this.localstorage.teacher_get('teacher_username'));
-  console.log(this.usernames);
-  console.log(this.localstorage.teacher_get('teacher_email'));
-  console.log(this.emails);
-  console.log(this.localstorage.teacher_get('teacher_query_token') );
-  console.log(this.query_tokens);
-  
+
 }
 
 know_class(username){

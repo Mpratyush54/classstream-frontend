@@ -1,20 +1,20 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { ActivatedRoute, Router } from '@angular/router';
+import { AfterViewInit, Component, Input, input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import * as dashjs from 'dashjs';
-import { Html5Event } from 'plyr';
+import { VideoURL } from 'src/app/models/VideoURL';
 
 @Component({
-  selector: 'app-video-play-actual',
-  templateUrl: './video-play-actual.component.html',
-  styleUrls: ['./video-play-actual.component.css'],
-  standalone:false
+  selector: 'app-video-player',
+  imports: [],
+  templateUrl: './video.player.component.html',
+  styleUrl: './video.player.component.css',
+  standalone:true
 })
-export class VideoPlayActualComponent implements OnInit, AfterViewInit {
-
-  constructor(private route: ActivatedRoute) { }
-  video_url: string
-  image_url: string
+export class VideoPlayerComponent implements OnInit, AfterViewInit{
+ constructor(private route: ActivatedRoute) { }
+    @Input() data_object: VideoURL;
+  @Input() image_url: string;
   data: any
   player: any
   video: any
@@ -42,17 +42,14 @@ export class VideoPlayActualComponent implements OnInit, AfterViewInit {
   isScrubbing: boolean = false
   WasPaused 
   ngOnInit(): void {
-
-    this.video_url = environment.baseurl + 'teacher/playvideo/' + this.route.snapshot.params['id'];
-    this.image_url = environment.baseurl + 'teacher/playvideo/poster/' + this.route.snapshot.params['id'];
     this.data = {
       fluid: true,
       aspectRatio: '1920:1080',
       autoplay: true,
-      poster: `${this.image_url}`,
+      poster: `${this.data_object.ImageURL.ImageUrl}`,
 
       sources: [{
-        src: `${this.video_url}`,
+        src: `${this.data_object.VideoURL[1080]}`,
         type: 'video/mp4',
 
       }]
@@ -105,20 +102,20 @@ export class VideoPlayActualComponent implements OnInit, AfterViewInit {
           if (availableBitrates[0] <= 4000000) {
             const ctime = this.mainVideo.currentTime
 
-            this.player.attachSource("/assets/Dash/dash.mpd")
+            this.player.attachSource(this.data_object.VideoURL[1080])
 
             this.mainVideo.currentTime = ctime
 
           } else if (availableBitrates[0] >= 4000000 && availableBitrates[0] >= 1200000) {
             const ctime = this.mainVideo.currentTime
 
-            this.player.attachSource("/assets/Dash/720/dash.mpd")
+            this.player.attachSource(this.data_object.VideoURL[720])
 
             this.mainVideo.currentTime = ctime
           } else {
             const ctime = this.mainVideo.currentTime
 
-            this.player.attachSource("assets/Dash/480/dash.mpd")
+            this.player.attachSource(this.data_object.VideoURL[480])
             this.mainVideo.currentTime = ctime
 
           }
@@ -691,9 +688,6 @@ export class VideoPlayActualComponent implements OnInit, AfterViewInit {
   event.stopPropagation();
 
 }
-
-
-
 
 
 }

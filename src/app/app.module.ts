@@ -27,7 +27,6 @@ import { VideoUploadComponent } from './teacher/video-upload/video-upload.compon
 
 import { VideoUploadFileComponent } from './teacher/video-upload-file/video-upload-file.component';
 import { VideoPlayComponent } from './teacher/video-play/video-play.component';
-import { VideoPlayActualComponent } from './teacher/video-play-actual/video-play-actual.component';
 import { NotesComponent } from './teacher/notes/notes.component';
 import { NotesAddComponent } from './teacher/notes-add/notes-add.component';
 import { IndexStudentComponent } from './student/index-student/index-student.component';
@@ -70,6 +69,8 @@ import { LiveJoinComponent } from './student/live/live-join/live-join.component'
 
 
 import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource,NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { VideoPlayerComponent } from './asset/video.player/video.player.component';
+import { TablesComponent } from './asset/tables/tables.component';
 
 
 
@@ -79,7 +80,6 @@ import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource,NgbPaginationModule } f
         VideoUploadComponent,
         VideoUploadFileComponent,
         VideoPlayComponent,
-        VideoPlayActualComponent,
         NotesComponent,
         NotesAddComponent,
         IndexStudentComponent,
@@ -109,8 +109,9 @@ import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource,NgbPaginationModule } f
     exports:[
         HeaderDesktopComponent,
         HeaderMobileComponent,
-        MenuSidebarComponent
-    
+        MenuSidebarComponent,
+    VideoPlayerComponent,
+    TablesComponent
     ],
     bootstrap: [AppComponent], 
     imports: [
@@ -150,7 +151,9 @@ import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource,NgbPaginationModule } f
     }),
     HeaderMobileComponent,
     MenuSidebarComponent,
-    HeaderDesktopComponent
+    HeaderDesktopComponent,
+    VideoPlayerComponent,
+    TablesComponent
 ], providers: [{ provide: HTTP_INTERCEPTORS, useClass: IntersepterService, multi: true }, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }
 pdfDefaultOptions.assetsFolder = 'bleeding-edge';

@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { HeaderDesktopComponent } from 'src/app/nav/header-desktop/header-desktop.component';
 import { MenuSidebarComponent } from 'src/app/nav/menu-sidebar/menu-sidebar.component';
 import { HeaderMobileComponent } from 'src/app/nav/header-mobile/header-mobile.component';
+import { DisplayedColumns } from 'src/app/models/table.module/DisplayedColumns';
+import { TablesComponent } from 'src/app/asset/tables/tables.component';
 
 
 @Component({
@@ -16,7 +18,7 @@ import { HeaderMobileComponent } from 'src/app/nav/header-mobile/header-mobile.c
   standalone:true,
   imports:[
     CommonModule, // modules it uses
-
+TablesComponent
   ]
 })
 export class VideoComponent implements OnInit {
@@ -43,6 +45,48 @@ this.meassagenot=true
       }
 
     })
+  }
+  displayedColumns: DisplayedColumns[] = [
+      {
+        displayName: "video ID",
+        type: "Text",
+        key: 'id'
+      },
+      {
+        displayName: "Class",
+        type: "Text",
+        key: 'class'
+      },
+      {
+        displayName: "title",
+        type: "Number",
+        key: 'title'
+      },
+      {
+        displayName: "date",
+        type: "DateTime",
+        key: 'time'
+      },
+
+      {
+        key: 'actions',
+        displayName: 'Actions',
+        type: 'Buttons',
+        buttons: [
+          { label: 'Play Video', color: 'primary', icon: 'play_circle', action: 'play' },
+        ],
+      },
+  
+    ]
+  handleButtonClick(event: { action: string; row: any }) {
+    switch (event.action) {
+      case 'play':
+        this.playvideo(event.row.id);   // ✅ Pass row.id
+        break;
+        
+      default:
+        console.warn('Unknown action:', event.action);
+    }
   }
   playvideo(data){
     event.preventDefault();

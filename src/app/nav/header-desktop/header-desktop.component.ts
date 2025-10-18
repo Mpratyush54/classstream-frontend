@@ -54,4 +54,16 @@ ProfileService = inject(ProfileService);
     })
     window.open(data, '_blank');
   }
-}
+  menuServieceContoller(){
+    this.menuService.toggleDesktopPanel()
+    if(this.ProfileService.showDesktopPanel){
+      this.ProfileService.closeDesktopPanel()
+    }
+  }
+  ProfileServiceController(){
+    this.ProfileService.toggleDesktopPanel()
+  
+    if(this.menuService.showDesktopPanel){
+      this.menuService.closeDesktopPanel()
+    }
+}}

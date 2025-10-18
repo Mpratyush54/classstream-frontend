@@ -12,6 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdModalContent } from 'src/app/teacher/new-notification/new-notification.component';
 import { Title } from '@angular/platform-browser';
 import { data } from 'jquery';
+import { MessageArray } from 'src/app/models/MessageArray';
 
 @Component({
   selector: 'app-live-join',
@@ -32,10 +33,10 @@ export class LiveJoinComponent implements OnInit {
   stream_url
   stream_key
   sources: Plyr.Source[]
-  messagearry: Array<{ user: String, message: String }> = []
+  messagearry: MessageArray = []
   pmesage
   messagetext: String
-  mesage: Array<{ user: String, message: String }> = []
+  mesage: MessageArray = []
   ngOnInit(): void {
 
 

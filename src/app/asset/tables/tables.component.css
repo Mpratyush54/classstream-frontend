@@ -1,0 +1,134 @@
+/* Shared */
+.full-width-table { width: 100%; }
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+    background-color: #ced1d7;
+    border-radius: 10px;
+    padding: 0 10px 0 10px;
+
+}
+.table-search-input{
+  border: 0;
+  height: 50px;
+  width: 100%;
+  background-color: transparent;
+}
+.cdk-overlay-pane{
+    background: #ced1d7;
+    background-color: #ced1d7;
+
+}
+/* ===== FIX PAGINATOR BUTTON BACKGROUND ===== */
+::ng-deep .mat-mdc-paginator .mat-mdc-icon-button {
+  background-color: #3f51b5 !important; /* your theme color */
+  color: white !important;
+  border-radius: 6px !important;
+  transition: background-color 0.2s ease;
+  margin-right: 5px;
+}
+
+::ng-deep .mat-mdc-paginator .mat-mdc-icon-button:hover {
+  background-color: #303f9f !important; /* darker hover */
+}
+
+/* Optional – style the dropdown and range label for consistency */
+::ng-deep .mat-mdc-paginator .mat-mdc-select-value {
+  color: #333 !important;
+  font-weight: 500;
+}
+
+::ng-deep .mat-mdc-paginator .mat-mdc-paginator-range-label {
+  color: #555 !important;
+  font-size: 14px;
+}
+
+.table-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.actions-cell {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* Desktop */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+/* Mobile */
+.mobile-wrapper { padding: 6px; }
+.mobile-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.mobile-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.card-row { margin-bottom: 8px; }
+.label {
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.value { font-size: 14px; color: #111827; }
+.card-img {
+  width: 100%;
+  max-height: 180px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-top: 6px;
+}
+.actions-cell.mobile { margin-top: 6px; }
+.bottom-paginator {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0 4px;
+}
+.custom-action-button {
+  border-radius: 6px;
+  font-size: 13px;
+  text-transform: none;
+  padding: 4px 10px;
+  margin-right: 6px;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+/* Hover animation */
+.custom-action-button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+/* === Force custom background and text color === */
+::ng-deep .mat-mdc-raised-button.custom-action-button {
+  background-color: attr(data-bg color, #3f51b5) !important;
+  color: attr(data-fg color, #fff) !important;
+}
+
+/* Alternative reliable fallback using MDC vars */
+::ng-deep .mat-mdc-raised-button.custom-action-button {
+  --mdc-protected-button-container-color: var(--custom-bg, #3f51b5) !important;
+  --mdc-protected-button-label-text-color: var(--custom-fg, #fff) !important;
+}
+
+/* Prevent Material from resetting color */
+::ng-deep .mat-mdc-raised-button.custom-action-button .mdc-button__label {
+  color: inherit !important;
+}

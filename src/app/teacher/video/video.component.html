@@ -28,84 +28,21 @@
                     <div>
                         <h1 class="" style="text-align: center;"> {{meassage}}</h1>
                     </div>
-                    <div class="container-fluid" *ngIf="meassagenot">
-                        <div class="row">
-                            <div class="col-lg-9">
-                                <div class="table-responsive table--no-card m-b-30">
-                                    <table class="table table-borderless table-striped table-earning">
-                                        <thead>
-                                            <tr>
-                                                <th>video ID</th>
-                                                <th>Class</th>
-                                                <th>title</th>
-                                                <th class="text-right">date</th>
-                                                <th class="text-right">process</th>
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+<app-tables
+  *ngIf=" model2.length > 0"
+  [data]="model2"
+  [columns]="displayedColumns"
+  (buttonClick)="handleButtonClick($event)"
+  >
+</app-tables>
+<app-tables
+  *ngIf=" model.length > 0"
+  [data]="model"
+  [columns]="displayedColumns"
+  (buttonClick)="handleButtonClick($event)"
+  >
+</app-tables>
 
-
-                                            <tr *ngFor="let obj of model">
-
-
-                                                <td>{{obj.id}}</td>
-                                                <td>{{obj.class}}</td>
-                                                <td>{{obj.title}}</td>
-                                                <td class="text-right">{{obj.time}}</td>
-
-                                                <td class="text-right display_texts" id="display_texts" style="display:none;">Not Processed</td>
-                                                <td class="text-right display_button" id="display_button">
-
-
-
-
-
-                                                    <button type="submit" class="btn btn-primary" (click)="onSubmit(obj.id)">Process</button>
-
-                                            </tr>
-
-
-
-
-
-
-
-                                            <tr *ngFor="let obj2 of model2">
-                                                <td>
-                                                    <a (click)="playvideo(obj2.id)" class="image_us">
-                                                        <img src="{{image_url}}{{obj2.id}}" alt="Thumnail">
-
-                                                    </a>
-
-                                                </td>
-
-                                                <td>{{obj2.class}}</td>
-                                                <td>{{obj2.title}}</td>
-                                                <td class="text-right">{{obj2.time}}</td>
-
-
-                                                <td class="text-right" id="display_button">
-
-
-
-                                                    <button type="submit" class="btn btn-danger" (click)="playvideo(obj2.id)">Play Video</button>
-
-
-                                                </td>
-
-                                            </tr>
-
-
-
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
                 </div>
           

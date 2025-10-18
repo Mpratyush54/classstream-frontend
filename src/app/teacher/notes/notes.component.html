@@ -1,100 +1,46 @@
+<div class="container-fluid ">
 
-                <div class="container-fluid ">
 
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Upload a new video</h4>
+            </div>
+            <div class="card-body">
+                <p class="text-muted m-b-15">Click here top Upload a new video</p>
 
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Upload a new video</h4>
-                            </div>
-                            <div class="card-body">
-                                <p class="text-muted m-b-15">Click here top Upload a new video</p>
-
-                                <ul class="list-inline">
-                                    <li>
-                                        <div class="center">
-                                            <button (click)="navigateurl('/teacher/notes-add')" style="text-align: center;color: #551A8B;">Click Here</button>
-                                        </div>
-
-                                    </li>
-
-                                </ul>
-
-                            </div>
+                <ul class="list-inline">
+                    <li>
+                        <div class="center">
+                            <button (click)="navigateurl('/teacher/notes-add')"
+                                style="text-align: center;color: #551A8B;">Click Here</button>
                         </div>
 
+                    </li>
 
-                    </div>
-                    <div>
-                        <h1 class="" style="text-align: center;"> {{meassage}}</h1>
-                    </div>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <!-- DATA TABLE -->
-                                <h3 class="title-5 m-b-35">data table</h3>
+                </ul>
+
+            </div>
+        </div>
 
 
-                                <div class="table-responsive table-responsive-data2">
-                                    <table class="table table-data2">
-                                        <thead>
-                                            <tr>
+    </div>
+    <div>
+        <h1 class="" style="text-align: center;"> {{meassage}}</h1>
+    </div>
+    <div *ngIf="isloading" class="loading-container">
+  <mat-spinner></mat-spinner>
+  <p>Loading data...</p>
+</div>
 
-                                                <th>notes ID</th>
-                                                <th>Chapter Name</th>
-                                                <th>Chapter No</th>
-                                                <th>date/time</th>
+<app-tables
+  *ngIf="!isloading && model.length > 0"
+  [data]="model"
+  [columns]="displayedColumns"
+  (buttonClick)="handleButtonClick($event)"
+  >
+</app-tables>
 
-                                                <th>Class</th>
+<p *ngIf="!isloading && !model.length" class="no-data">No data available</p>
 
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody *ngFor="let obj of model">
-
-                                            <tr class="tr-shadow">
-
-                                                <td>{{obj.id}}</td>
-                                                <td>
-                                                    <span class="block-email">{{obj.ChapterName}}</span>
-                                                </td>
-                                                <td class="desc">{{obj.chapterno}}</td>
-
-                                                <td class="datee">{{obj.date}}</td>
-                                                <td>
-                                                    <span class="status--process">{{obj.class}}</span>
-                                                </td>
-
-                                                <td>
-                                                    <div class="table-data-feature">
-
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" (click)="edit(obj.id)">
-                                                            
-                                                            <i class="zmdi zmdi-edit"></i>
-
-                                                        </button>
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" (click)="delete(obj.id)">
-                                                            
-                                                            <i class="zmdi zmdi-delete"></i>
-                                                        </button>
-
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="spacer"></tr>
-                                        </tbody>
-
-                                        <div class="text-center center-button">
-                                            <button type="button" class="btn btn-danger btn-lg" style="text-align: center;" (click)="loadall()">Load all</button>
-                                        </div>
-
-                                    </table>
-                                </div>
-                                <!-- END DATA TABLE -->
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-     
+</div>
