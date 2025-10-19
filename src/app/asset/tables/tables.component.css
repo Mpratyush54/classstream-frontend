@@ -10,7 +10,7 @@
     padding: 0 10px 0 10px;
 
 }
-.table-search-input{
+.table-search-input, .mat-mdc-input-element{
   border: 0;
   height: 50px;
   width: 100%;
@@ -131,4 +131,30 @@
 /* Prevent Material from resetting color */
 ::ng-deep .mat-mdc-raised-button.custom-action-button .mdc-button__label {
   color: inherit !important;
+}
+@media (min-width: 613px) {
+  .mat-mdc-paginator {
+    flex-direction: column; /* stack content vertically */
+    align-items: stretch;
+    text-align: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+  } .mat-mdc-paginator-range-actions,
+  .mat-mdc-paginator-navigation {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* Dropdown and range label take full width */
+  .mat-mdc-paginator-page-size {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .mat-mdc-paginator-range-label {
+    width: 100%;
+    text-align: center;
+    margin-top: 4px;
+  }
 }

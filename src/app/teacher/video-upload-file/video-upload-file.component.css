@@ -1,3 +1,46 @@
-.btn-primary {
-    max-height: 30px;
+.upload-page {
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.upload-section {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 12px;
+  background: #fafafa;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.dropzone {
+  position: relative;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  color: #666;
+  background-color: #f8f9fa;
+  transition: all 0.2s ease-in-out;
+}
+.dropzone.dragover {
+  border-color: #007bff;
+  background-color: #e9f3ff;
+  color: #007bff;
+}
+.dropzone input[type=file] {
+  opacity: 0;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.progress {
+  height: 12px;
+  background-color: #eee;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.progress-bar {
+  background: linear-gradient(90deg, #007bff, #00c851);
+  color: #fff;
+  font-size: 12px;
 }

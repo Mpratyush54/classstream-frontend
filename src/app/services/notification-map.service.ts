@@ -18,7 +18,6 @@ constructor(private apiService:NotificationService){
     fetchNotifications() {
         console.log('NotificationService: Triggering fetch from ApiService...');
         this.apiService.notificationall().subscribe(apiResponse => {
-          console.log(apiResponse);
             const mappedData = apiResponse.map(item => ({
                 id: item.id,
                 title: item.heading,

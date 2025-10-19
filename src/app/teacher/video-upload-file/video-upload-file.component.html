@@ -1,88 +1,53 @@
+<div class="container-fluid center">
+  <h3 class="title-5 m-b-35 text-center">Video Upload</h3>
 
-                <div class="container-fluid center ">
+  <div *ngIf="loadingStatus" class="alert alert-info text-center">Checking upload status...</div>
 
-                    <p *ngFor="let alert of alerts">
-                        <ngb-alert [type]="alert.type" (closed)="close(alert)" id="click_to_close">{{ alert.message }}</ngb-alert>
-                        <!-- <input type="text" id="alertcloase" value="{{alert}}"> -->
+  <div *ngIf="warningMessage" class="alert alert-warning text-center">
+    {{ warningMessage }}
+  </div>
 
-                    </p>
-                    <!-- <div class="alert alert-danger" role="alert">
-                        This is a danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                    </div> -->
+  <!-- Thumbnail Upload -->
+  <div *ngIf="!themouploded" class="card mb-3" (drop)="handleDrop($event, 'thumb')" (dragover)="handleDragOver($event)" (dragleave)="handleDragLeave($event)">
+    <div class="card-header"><strong>Upload Thumbnail</strong></div>
+    <div class="card-body text-center" [class.dragging]="dragOver()">
+      <p>Drag & drop a JPEG image or select below:</p>
+      <input type="file" accept=".jpg,.jpeg" (change)="onThumbSelect($event.target.files[0])">
+      <button class="btn btn-primary mt-2" (click)="uploadThumbnail()">Upload Thumbnail</button>
+    </div>
+  </div>
 
-                    <div class="col-lg-12" *ngIf="video_not_up">
-                        <div class="card">
+  <div *ngIf="themouploded" class="alert alert-success text-center">✅ Thumbnail Uploaded</div>
 
-                            <p>
-                                <div class="card-header">
-                                    <strong>Upload Video</strong>
-                                </div>
+  <!-- Video Upload -->
+  <div *ngIf="!vedouploded" class="card mb-3" (drop)="handleDrop($event, 'video')" (dragover)="handleDragOver($event)" (dragleave)="handleDragLeave($event)">
+    <div class="card-header"><strong>Upload Video</strong></div>
+    <div class="card-body text-center" [class.dragging]="dragOver()">
+      <p>Drag & drop an MP4 video or select below:</p>
+      <input type="file" accept=".mp4" (change)="onVideoSelect($event.target.files[0])">
+      <button class="btn btn-primary mt-2" (click)="uploadVideo()">Upload Video</button>
+      <div *ngIf="isUploading()" class="progress mt-3">
+        <div class="progress-bar" [style.width.%]="progress()" role="progressbar">
+          {{ progress() }}%
+        </div>
+      </div>
+    </div>
+  </div>
 
-                                <form class="form-horizontal">
-                                    <div class="card-body card-block">
-                                        <div class="row form-group">
-                                            <div class="col col-md-3">
-                                                <label for="text-input" class=" form-control-label ">Thumanail</label>
-                                            </div>
-                                            <div class="col-12 col-md-9">
-                                                <div class="form-row" id="fie_thumanail">
+  <div *ngIf="vedouploded" class="alert alert-success text-center">✅ Video Uploaded</div>
 
-                                                    <div class="form-group ">
-
-                                                        <input type="file" accept=".jpg ,.jpeg" (change)="onFileselected($event)">
-
-                                                    </div>
-                                                    <div class="col-md-6">
-
-                                                        <span class="badge badge-primary " *ngIf="themouploded"> Thumbnail Uploaded</span>
-
-                                                    </div>
-                                                    <button type="submit" name="submit" class="btn btn-primary btn-sm" *ngIf="!themouploded" (click)="onupload()">
-                                                   
-                                                    <i class="fa fa-dot-circle-o"></i> Upload
-                                                    </button>
-                                                    <small>Please make sure that the the image is a full hd image or will be rejected after upload</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body card-block">
-                                        <div class="row form-group">
-                                            <div class="col col-md-3">
-                                                <label for="text-input" class=" form-control-label ">Video</label>
-                                            </div>
-                                            <div class="col-12 col-md-9">
-                                                <div class="form-row" id="fie_video">
-
-                                                    <div class="form-group ">
-
-                                                        <input type="file" accept=".mp4" (change)="onFileselectedvideo($event)">
-
-                                                    </div>
-                                                    <div class="col-md-6">
-
-                                                        <span class="badge badge-primary " *ngIf="vedouploded"> Video Uploaded</span>
+  <!-- Verify Button -->
+  <div class="text-center mt-3">
+    <button class="btn btn-success" (click)="verifyAndFinish()" *ngIf="vedouploded && themouploded">
+      Verify & Finish
+    </button>
+  </div>
 
 
-                                                    </div>
-                                                    <button type="submit" name="submit" class="btn btn-primary btn-sm" *ngIf="!vedouploded" (click)="onuploadvideo()">
-                                                    <i class="fa fa-dot-circle-o"></i> Upload
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <button type="submit" name="submit" class="btn btn-primary btn-sm" *ngIf="vedouploded && themouploded" (click)="verifypass()">
-                                            <i class="fa fa-dot-circle-o"></i> Upload
-                                            </button>
-                                    </div>
-                                </form>
-
-
-                        </div>
-
-                    </div>
-
-
-                </div>
+<ngb-alert
+  *ngFor="let a of alerts()"
+  [type]="a.type"
+  [dismissible]="true"
+>
+  {{ a.message }}
+</ngb-alert></div>

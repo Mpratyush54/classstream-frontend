@@ -4,4 +4,5 @@ export interface TableButton {
   color?: string;
   icon?: string;       
   textColor?:string // Material icon name
+  key?:string // Material icon name
 }

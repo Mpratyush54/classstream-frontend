@@ -78,7 +78,7 @@ import { TablesComponent } from './asset/tables/tables.component';
         AppComponent,
 
         VideoUploadComponent,
-        VideoUploadFileComponent,
+        
         VideoPlayComponent,
         NotesComponent,
         NotesAddComponent,
@@ -116,6 +116,7 @@ import { TablesComponent } from './asset/tables/tables.component';
     bootstrap: [AppComponent], 
     imports: [
     CKEditorModule,
+    VideoUploadFileComponent,
     FourZeroFourComponent,
     DownloadComponent,
     SomethingwentwrongComponent,

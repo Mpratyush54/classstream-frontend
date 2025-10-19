@@ -173,7 +173,7 @@ this.hasActions = this.columns.some(c => c.type === 'Buttons');
 
   /** Emit action to parent */
   onButtonClick(action: string, row: any) {
-    this.buttonClick.emit({ action, row });
+    this.buttonClick.emit({ action, row});
   }
 
   /** Format date for display (not used for sorting) */
