@@ -1,48 +1,38 @@
+<div class="container-fluid ">
 
-                <div class="container-fluid ">
 
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Upload a new video</h4>
+            </div>
+            <div class="card-body">
+                <p class="text-muted m-b-15">Click here top Upload a new video</p>
 
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Upload a new video</h4>
-                            </div>
-                            <div class="card-body">
-                                <p class="text-muted m-b-15">Click here top Upload a new video</p>
-
-                                <ul class="list-inline">
-                                    <li>
-                                        <div class="center">
-                                            <a (click)="navigate('/teacher/video-upload')" style="text-align: center;">Click Here</a>
-                                        </div>
-
-                                    </li>
-
-                                </ul>
-
-                            </div>
+                <ul class="list-inline">
+                    <li>
+                        <div class="center">
+                            <a (click)="navigate('/teacher/video-upload')" style="text-align: center;">Click Here</a>
                         </div>
 
+                    </li>
 
-                    </div>
-                    <div>
-                        <h1 class="" style="text-align: center;"> {{meassage}}</h1>
-                    </div>
+                </ul>
 
-<app-tables
-  *ngIf=" model2.length > 0"
-  [data]="model2"
-  [columns]="displayedColumns"
-  (buttonClick)="handleButtonClick($event)"
-  >
-</app-tables>
-<app-tables
-  *ngIf=" model.length > 0"
-  [data]="model"
-  [columns]="displayedColumns"
-  (buttonClick)="handleButtonClick($event)"
-  >
-</app-tables>
+            </div>
+        </div>
 
-                </div>
-          
+
+    </div>
+    <div>
+        <h1 class="" style="text-align: center;"> {{meassage}}</h1>
+    </div>
+
+    <app-tables *ngIf=" model2.length > 0" [data]="model2" [columns]="displayedColumns"
+        (buttonClick)="handleButtonClick($event)">
+    </app-tables>
+    <app-tables *ngIf=" model.length > 0" [data]="model" [columns]="displayedColumns"
+        (buttonClick)="handleButtonClick($event)">
+    </app-tables>
+
+</div>

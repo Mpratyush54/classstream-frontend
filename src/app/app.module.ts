@@ -26,7 +26,6 @@ import { IndexComponent } from './teacher/index/index.component';
 import { VideoUploadComponent } from './teacher/video-upload/video-upload.component';
 
 import { VideoUploadFileComponent } from './teacher/video-upload-file/video-upload-file.component';
-import { VideoPlayComponent } from './teacher/video-play/video-play.component';
 import { NotesComponent } from './teacher/notes/notes.component';
 import { NotesAddComponent } from './teacher/notes-add/notes-add.component';
 import { IndexStudentComponent } from './student/index-student/index-student.component';
@@ -79,7 +78,6 @@ import { TablesComponent } from './asset/tables/tables.component';
 
         VideoUploadComponent,
         
-        VideoPlayComponent,
         NotesComponent,
         NotesAddComponent,
         IndexStudentComponent,

@@ -26,7 +26,37 @@ private readonly   query_tokens = this.localstorage.teacher_get('teacher_query_t
     
     
     }
+  fectchkey(videoId){
+      let headers = new Headers();
 
+        let url = environment.baseurl+'video/issue-key';
+       return this.http.post(url ,{
+      videoId:videoId,
+        username:this.usernames,
+      email:this.emails ,
+      query_token: this.query_tokens,
+      qualities: ['1080p', '720p', '480p'] // request all qualities together
+    }).pipe(
+          map((data: any) => {
+    if(data.status == true){
+    
+      return data
+    }
+    
+          }), catchError( response => {
+    console.log(response);
+    
+      console.log(this.emails);
+      
+      
+          return throwError( 'Something went wrong!' );
+           
+    
+    
+          
+          })
+       )
+    }
     playvideo(){
       let headers = new Headers();
 
