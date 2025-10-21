@@ -1,3 +1,154 @@
-a{
-    color: #ff2e44!important;
+.page-content--bge5 {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at bottom, #0a0f1c 0%, #000 100%);
+}
+
+/* 🌟 Stars */
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 2s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.3; }
+}
+
+/* 🌠 Stars that move slowly (parallax) */
+.star.move {
+  animation:
+    twinkle 2s ease-in-out infinite alternate,
+    drift 60s linear infinite;
+}
+
+@keyframes drift {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-100px, 100px); }
+}
+
+/* 🌌 Milky Way Glow */
+.milkyway {
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at 50% 60%,
+    rgba(180, 200, 255, 0.4) 0%,
+    rgba(100, 80, 200, 0.25) 25%,
+    rgba(40, 20, 100, 0.05) 70%,
+    transparent 100%
+  );
+  transform: rotate(-15deg);
+  filter: blur(80px);
+  animation: driftGalaxy 80s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+@keyframes driftGalaxy {
+  from { transform: rotate(-15deg) translateY(0); }
+  to { transform: rotate(-12deg) translateY(-60px); }
+}
+
+/* 🧊 Login Box */
+.login-wrap {
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  width: 380px;
+  padding: 40px 35px;
+  text-align: center;
+  color: #fff;
+}
+.login-wrap label {
+  color: #cfd8ff;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: block;
+  text-align: left;
+}
+
+.login-wrap input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e8ecff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.login-wrap input::placeholder {
+  color: rgba(220, 230, 255, 0.6);
+  font-weight: 400;
+}
+
+.login-wrap input:focus {
+  outline: none;
+  border-color: #7ba5ff;
+  box-shadow: 0 0 6px rgba(123, 165, 255, 0.5);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ❗ Validation error (if using Angular invalid/touched) */
+.login-wrap input.ng-invalid.ng-touched {
+  border-color: #ff4c4c;
+  box-shadow: 0 0 6px rgba(255, 76, 76, 0.4);
+}
+
+.login-wrap input.ng-invalid.ng-touched::placeholder {
+  color: rgba(255, 130, 130, 0.7);
+}
+
+/* 🧊 Forgot password + text links */
+.login-wrap a {
+  color: #82b2ff;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.login-wrap a:hover {
+  text-decoration: underline;
+}
+.login-wrap button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #5a8bff, #a050ff);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(90, 139, 255, 0.5);
+}
+/* 💫 Hover effect — more glow */
+.login-wrap button:hover {
+  background: linear-gradient(135deg, #7ba4ff, #b271ff);
+  box-shadow: 0 0 20px rgba(123, 164, 255, 0.7);
+  transform: translateY(-2px);
+}
+
+/* 🧊 Disabled state */
+.login-wrap button:disabled {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.5);
+  box-shadow: none;
+  cursor: not-allowed;
 }
