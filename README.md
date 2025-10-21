@@ -66,7 +66,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 Contributions are welcome! Please follow standard Git workflow (fork, branch, commit, PR). Consider using [Conventional Commits](https://www.conventionalcommits.org/) for commit messages.
 
-THr contribution guidlines can be seen here -  [CONTRIBUTING](CONTRIBUTING)
+THr contribution guidlines can be seen here -  [CONTRIBUTING.md](CONTRIBUTING)
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
