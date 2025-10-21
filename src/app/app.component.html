@@ -1,19 +1,17 @@
- <router-outlet>
-    <div class="loader2" *ngIf="loaderservice.Isloading | async">
+<div class="app-wrapper">
+<div class="loader-overlay" [class.show]="loaderservice.Isloading| async">
+  <div class="stars"></div>
+  <div class="nebula"></div>
 
-        <mat-spinner style="top:50%;left:50%;"> </mat-spinner>
-        <h1 style="top:50%;left:50%;"> Please Wait</h1>
-        <h1 style="top:50%;left:50%;"> Please Wait</h1>
-        <h1 style="top:50%;left:50%;"> Please Wait</h1>
-        <h1 style="top:50%;left:50%;"> Please Wait</h1>
-        <h1 style="top:50%;left:50%;"> Please Wait</h1>
-        <h1 style="top:50%;left:50%;"> Please Wait</h1>
-        <h1 style="top:50%;left:50%;"> Please Wait</h1>
-        <h1 style="top:50%;left:50%;"> Please Wait</h1>
-        <h1 style="top:50%;left:50%;"> Please Wait</h1>
-        <h1 style="top:50%;left:50%;"> Please Wait</h1>
-        <h1 style="top:50%;left:50%;"> Please Wait</h1>
-        <h1 style="top:50%;left:50%;"> Please Wait</h1>
-    </div>
+  <div class="loader-content">
+    <div class="core-glow"></div>
+    <h2 class="brand">Class Stream</h2>
+  </div>
+</div>
 
-</router-outlet> 
+<!-- <main [@routeAnimations]="getRouteAnimationData(routerOutlet)"> -->
+    <router-outlet #routerOutlet="outlet"></router-outlet>
+  <!-- </main> -->
+
+
+  </div>

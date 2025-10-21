@@ -122,6 +122,7 @@ import { TablesComponent } from './asset/tables/tables.component';
     VideoComponent,
     LogoutComponent,
 
+    
     MatFormFieldModule,
     MatProgressSpinnerModule,
     BrowserAnimationsModule,

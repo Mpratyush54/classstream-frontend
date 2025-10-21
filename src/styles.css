@@ -49,3 +49,10 @@ a{
   background-color: attr(data-bg color, #3f51b5) !important;
   color: attr(data-fg color, #fff) !important;
 }
+html,
+body,
+.app-wrapper {
+  position: relative;
+  z-index: 0 !important;
+  overflow-x: hidden;
+}

@@ -11,7 +11,7 @@
       height: 4.5rem;
       background-color: #ffffff;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      z-index: 1100;
+      z-index: 98;
       display: flex;
       border-radius: 9999px; /* Pill shape */
       border: 1px solid #e5e7eb;
