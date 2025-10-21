@@ -17,7 +17,7 @@ export class UploadVideoService {
   private readonly emails = this.localstorage.teacher_get('teacher_email')
   private readonly query_tokens = this.localstorage.teacher_get('teacher_query_token')
   async upload_video(file: File, id: string, onProgress?: (pct: number) => void) {
-    const CHUNK_SIZE = 50 * 1024 * 1024; // 50 MB
+    const CHUNK_SIZE = 5 * 1024 * 1024; // 1 MB
     const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
     const baseUrl = `${environment.baseurl}teacher/upload_video_video/v2`;
 
