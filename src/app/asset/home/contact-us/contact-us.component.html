@@ -1,0 +1,70 @@
+<div class="contact-container">
+  <section class="contact-header">
+    <h1>Contact Me</h1>
+    <p>
+      Have a question or suggestion? Feel free to reach out — I’ll get back to you soon.
+    </p>
+  </section>
+
+  <section class="contact-content">
+    <div class="contact-form">
+      <form (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="entry.1234567890"
+            ngModel
+            class="form-control"
+            placeholder="Your Name"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="entry.987654321"
+            ngModel
+            class="form-control"
+            placeholder="Your Email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea
+            id="message"
+            name="entry.192837465"
+            ngModel
+            class="form-control"
+            rows="4"
+            placeholder="Write your message..."
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn" [disabled]="!contactForm.valid">Send Message</button>
+      </form>
+
+      <!-- 💬 Custom Alert -->
+      <div class="custom-alert" *ngIf="alertVisible">
+        <p>{{ alertMessage }}</p>
+      </div>
+    </div>
+
+    <div class="contact-info">
+      <h3>Reach Out</h3>
+      <p>
+        <strong>Pratyush Mishra</strong><br />
+        B.Tech in Computer Engineering, Christ University, Bangalore
+      </p>
+      <p>📧 pratyushmishra.dev@gmail.com</p>
+      <p>🌐 <a href="https://pratyushh.online" target="_blank">pratyushh.online</a></p>
+    </div>
+  </section>
+</div>

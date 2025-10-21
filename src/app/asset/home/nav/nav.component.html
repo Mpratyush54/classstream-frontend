@@ -1,0 +1,70 @@
+<header class="navbar">
+  <div class="navbar-left" routerLink="">
+    <div class="logo" >
+      <span class="logo-box">C</span>
+      <span class="logo-text">Class Stream</span>
+    </div>
+  </div>
+
+  <nav class="navbar-center">
+    <a routerLink="/about" routerLinkActive="active">About</a>
+    <a routerLink="/features" routerLinkActive="active">Features</a>
+    <a routerLink="/contact" routerLinkActive="active">Contact</a>
+  </nav>
+
+  <div class="navbar-right">
+    <button class="btn login" routerLink="/login">Login</button>
+    <button class="btn signup" routerLink="/signup">Sign Up</button>
+  </div>
+</header>
+<router-outlet></router-outlet>
+
+<footer class="footer">
+  <div class="footer-container">
+    <!-- 🪴 Left Section -->
+    <div class="footer-brand">
+      <h2 class="logo">Class Stream</h2>
+      <p>
+        Designed and developed by <strong>Pratyush Mishra</strong> — a full stack developer and B.Tech student at Christ University, Bangalore.
+      </p>
+    </div>
+
+    <!-- 🔗 Middle Section -->
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a routerLink="/home">Home</a></li>
+        <li><a routerLink="/about">About</a></li>
+        <li><a routerLink="/features">Features</a></li>
+        <li><a routerLink="/contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- 🌐 Right Section -->
+    <div class="footer-contact">
+      <h3>Connect</h3>
+      <ul>
+        <li>
+          <span class="icon">📧</span>
+          <a href="mailto:pratyushmishra.dev@gmail.com">pratyushmishra.dev@gmail.com</a>
+        </li>
+        <li>
+          <span class="icon">🌍</span>
+          <a href="https://pratyushh.online" target="_blank">pratyushh.online</a>
+        </li>
+        <li>
+          <span class="icon">💼</span>
+          <a href="https://www.linkedin.com" target="_blank">LinkedIn</a>
+        </li>
+        <li>
+          <span class="icon">🐙</span>
+          <a href="https://github.com" target="_blank">GitHub</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© {{ currentYear }} Cudemo | Made with 💜 by Pratyush Mishra</p>
+  </div>
+</footer>

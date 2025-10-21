@@ -1,0 +1,95 @@
+.about-container {
+  font-family: 'Inter', sans-serif;
+  padding: 80px 10%;
+  background: #fafafa;
+  color: #1a1a1a;
+}
+
+/* 👨‍💻 About Section */
+.about-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  flex-wrap: wrap;
+  margin-bottom: 80px;
+}
+
+.about-image img {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.about-text {
+  flex: 1 1 400px;
+}
+
+.about-text h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.about-text h3 {
+  font-size: 1.3rem;
+  color: #6b3ef9;
+  margin-bottom: 15px;
+}
+
+.about-text p {
+  color: #555;
+  line-height: 1.7;
+  font-size: 1.05rem;
+  margin-bottom: 16px;
+}
+
+/* 💡 Value Cards */
+.values-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+.value-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(107, 62, 249, 0.2);
+}
+
+.value-card .icon {
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: #6b3ef9;
+}
+
+.value-card h4 {
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #222;
+}
+
+.value-card p {
+  color: #555;
+  font-size: 14px;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .about-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-image img {
+    margin-bottom: 30px;
+  }
+}

@@ -1,0 +1,156 @@
+.contact-container {
+  font-family: 'Inter', sans-serif;
+  padding: 80px 10%;
+  background: #fafafa;
+  color: #1a1a1a;
+}
+
+/* 🧾 Header */
+.contact-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.contact-header h1 {
+  font-size: 2.3rem;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+}
+
+.contact-header p {
+  color: #555;
+  font-size: 1rem;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* 📬 Contact Layout */
+.contact-content {
+  display: flex;
+  gap: 60px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* 💬 Form */
+.contact-form {
+  flex: 1 1 400px;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.form-control {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #6b3ef9;
+  box-shadow: 0 0 5px rgba(107, 62, 249, 0.4);
+  outline: none;
+}
+
+/* ✉️ Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #6b3ef9, #8a5bff);
+  border: none;
+  color: white;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  box-shadow: 0 0 12px rgba(107, 62, 249, 0.5);
+  transform: translateY(-2px);
+}
+
+/* 📞 Info */
+.contact-info {
+  flex: 1 1 300px;
+}
+
+.contact-info h3 {
+  color: #6b3ef9;
+  margin-bottom: 15px;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.icon {
+  font-size: 20px;
+  color: #6b3ef9;
+}
+
+.contact-info a {
+  color: #6b3ef9;
+  text-decoration: none;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .contact-content {
+    flex-direction: column;
+  }
+
+  .contact-form,
+  .contact-info {
+    width: 100%;
+  }
+
+  .contact-form {
+    margin-bottom: 40px;
+  }
+}
+.custom-alert {
+  background: rgba(107, 62, 249, 0.1);
+  border: 1px solid #6b3ef9;
+  color: #6b3ef9;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 8px;
+  margin-top: 20px;
+  padding: 10px 15px;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

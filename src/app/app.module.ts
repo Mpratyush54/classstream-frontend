@@ -39,8 +39,7 @@ import { SomethingwentwrongComponent } from './asset/somethingwentwrong/somethin
 import { NotificationComponent } from './teacher/notification/notification.component';
 import { NewNotificationComponent, NgbdModalContent } from './teacher/new-notification/new-notification.component';
 import { NotificationdetailsComponent } from './teacher/notificationdetails/notificationdetails.component';
-import { NgbdCarouselPause } from './asset/index/casual/casual.component';
-import { IndexComponents } from './asset/index/index.component';
+
 import { CreateComponent } from './teacher/live/create/create.component';
 import { JoinComponent } from './teacher/live/join/join.component';
 import { IndexLiveComponent } from './teacher/live/index/index.component';
@@ -124,8 +123,6 @@ import { TablesComponent } from './asset/tables/tables.component';
     LogoutComponent,
 
     MatFormFieldModule,
-        IndexComponents,
-        NgbdCarouselPause,
     MatProgressSpinnerModule,
     BrowserAnimationsModule,
     MatProgressBarModule,
