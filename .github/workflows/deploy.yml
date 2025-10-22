@@ -1,4 +1,4 @@
-name: 🚀 Angular Auto Deploy
+name: 🚀 Angular Deploy with Smart Versioning + Changelog
 
 on:
   push:
@@ -6,31 +6,38 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  build-release-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🧩 Checkout Code
+      - name: 🧩 Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # required for semantic-release
 
-      - name: ⚙️ Set up Node
+      - name: ⚙️ Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: 📦 Install Dependencies
+      - name: 📦 Install dependencies
         run: npm ci
 
-      - name: 🏗️ Build Angular App
+      - name: 🧠 Smart Versioning (semantic-release)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+
+      - name: 🏗️ Build Angular app
         run: npm run build --prod
 
-      - name: 🔐 Configure SSH
+      - name: 🔐 Configure SSH for deployment
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
-      - name: 🚚 Deploy to Server (dist/school/)
+      - name: 🚚 Deploy to Server (dist/school/browser)
         run: |
-          rsync -avz --delete dist/school/ github@${{ secrets.SERVER_IP }}:/var/www/school.pratyushh.online/
+          rsync -avz --delete dist/school/browser/ github@${{ secrets.SERVER_IP }}:/var/www/school.pratyushh.online/
