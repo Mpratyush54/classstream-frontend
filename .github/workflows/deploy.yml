@@ -31,7 +31,6 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
-      - name: 🚚 Deploy to Server
+      - name: 🚚 Deploy to Server (dist/school/)
         run: |
-          rsync -avz --delete dist/ github@${{ secrets.SERVER_IP }}:/var/www/school.pratyushh.online/
-        
+          rsync -avz --delete dist/school/ github@${{ secrets.SERVER_IP }}:/var/www/school.pratyushh.online/
