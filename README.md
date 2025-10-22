@@ -2,7 +2,7 @@
 
 **❗ DEPRECATION NOTICE ❗**
 
-**This project (web-v2 branch) is deprecated as of October 22, 2025 and is no longer actively maintained.**
+**This project (desktop-v2 branch) is deprecated as of October 22, 2025 and is no longer actively maintained.**
 
 ---
 
