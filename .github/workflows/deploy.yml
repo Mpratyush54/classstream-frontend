@@ -13,7 +13,7 @@ jobs:
       - name: 🧩 Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # required for semantic-release
+          fetch-depth: 0
 
       - name: ⚙️ Setup Node.js
         uses: actions/setup-node@v4
@@ -27,11 +27,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
-      - name: 🔄 Fetch updated package.json with release version
+
+      # 🆕 ADD THIS STEP
+      - name: 🔄 Pull latest commit (updated package.json with version)
         run: |
-         git fetch --tags
-         git reset --hard HEAD
-         git pull origin main
+          git fetch --tags origin main
+          git reset --hard origin/main
+          git pull origin main
+          cat package.json | grep version
 
       - name: 🏗️ Build Angular app
         run: npm run build --prod
@@ -43,6 +46,6 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
-      - name: 🚚 Deploy to Server (dist/school/browser)
+      - name: 🚚 Deploy to Server
         run: |
           rsync -avz --delete dist/school/browser/ github@${{ secrets.SERVER_IP }}:/var/www/school.pratyushh.online/
