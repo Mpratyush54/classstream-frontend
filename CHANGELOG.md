@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/Mpratyush54/classstream-frontend/compare/v1.0.1...v1.0.2) (2025-10-22)
+
+
+### Bug Fixes
+
+* **ci:** ensure build uses updated semantic-release version ([d48ea52](https://github.com/Mpratyush54/classstream-frontend/commit/d48ea5283ca03a47c575a7afb838417a4fad8552))
+
 ## [1.0.1](https://github.com/Mpratyush54/classstream-frontend/compare/v1.0.0...v1.0.1) (2025-10-22)
 
 
