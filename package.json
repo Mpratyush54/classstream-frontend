@@ -43,7 +43,7 @@
     "crypto-js": "^4.1.1",
     "dashjs": "^4.7.0",
     "hls.js": "^1.4.4",
-    "jquery": "^3.7.0",
+    "jquery": "^3.7.0", 
     "material-design-iconic-font": "^2.2.0",
     "ng2-pdf-viewer": "^9.1.5",
     "ngx-device-detector": "^10.1.0",
