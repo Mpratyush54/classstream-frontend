@@ -1,27 +1,73 @@
-# School
+# ⚠️ ClassStream Frontend (Web-v2)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.3.
+**⚠️ DEPRECATION NOTICE:**  
+This branch (`web-v2`) has been **deprecated as of October 22, 2025**.  
+It is no longer actively maintained or supported.  
+Future development and maintenance continue on the **[main branch](https://github.com/Mpratyush54/classstream-frontend/tree/main)**.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 📘 About This Project
 
-## Code scaffolding
+This branch contains the **second major version (v2)** of the ClassStream Frontend, built with Angular.  
+It followed `web-v1` and served as an improved architecture before transitioning to the active branch.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+**ClassStream** is a web-based educational content platform connecting teachers and students with interactive and secure digital classrooms.  
+The system features encrypted video playback, note sharing, real-time communication, and live classes.
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 🪦 Deprecated Branch History
 
-## Running unit tests
+| Version | Status | Notes |
+|----------|---------|-------|
+| [`web-v1`](https://github.com/Mpratyush54/classstream-frontend/tree/deprecated/web-v1) | 🔴 Deprecated | Original Angular build |
+| [`web-v2`](https://github.com/Mpratyush54/classstream-frontend/tree/deprecated/web-v2) | 🔴 Deprecated | Legacy architecture, no longer updated |
+| [`main`](https://github.com/Mpratyush54/classstream-frontend/tree/main)                | 🟢 Active     | Current and maintained branch |
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+---
 
-## Running end-to-end tests
+## ⚙️ Legacy Features (For Reference)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- Role-based dashboards for **Teachers** and **Students**
+- Secure video playback with **MPEG-DASH + DRM (ClearKey)**
+- Note management using **CKEditor 5** and PDF uploads
+- Real-time chat and **live class** system via **Socket.IO**
+- Browser push notifications via **Angular Service Worker**
+- Responsive layout with **Angular Material** components
 
-## Further help
+> These features were implemented during the `web-v2` phase and may differ from newer versions.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+---
+
+## 🧱 Setup (For Archival Testing Only)
+
+> ⚠️ This setup is preserved for reference.  
+> The branch is not recommended for new deployments.
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- [Angular CLI](https://angular.io/cli)
+
+```bash
+npm install -g @angular/cli
+```
+Installation
+```bash
+git clone https://github.com/Mpratyush54/classstream-frontend.git
+cd classstream-frontend
+git checkout web-v2
+npm install
+```
+Development Server
+```bash
+ng serve -o
+```
+Production Build
+```bash
+ng build --configuration production
+```
+##📄 License
+- This project is licensed under the MIT License.
+- See the LICENSE file for details.
