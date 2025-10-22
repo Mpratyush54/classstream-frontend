@@ -27,6 +27,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
+      - name: 🔄 Fetch updated package.json with release version
+        run: |
+         git fetch --tags
+         git reset --hard HEAD
+         git pull origin main
 
       - name: 🏗️ Build Angular app
         run: npm run build --prod
