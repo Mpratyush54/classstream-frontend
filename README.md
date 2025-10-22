@@ -1,27 +1,73 @@
-# School
+# ⚠️ ClassStream Frontend (Deprecated)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.2.
+**⚠️ DEPRECATION NOTICE:**  
+This branch (`web-v1`) has been **deprecated as of October 22, 2025**.  
+It is no longer actively maintained or supported.  
+Future development and maintenance continue on the **[main branch](https://github.com/Mpratyush54/classstream-frontend/tree/main)**.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## 📘 About This Project
 
-## Code scaffolding
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+It served as the **frontend application for ClassStream**, providing interfaces for teachers and students to access educational content, videos, notes, and live sessions.
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 🧩 New Active Version
 
-## Running unit tests
+👉 The actively maintained and updated version of ClassStream Frontend is now available here:  
+**[ClassStream Frontend (Main Branch)](https://github.com/Mpratyush54/classstream-frontend/tree/main)**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Please use that branch for all new development, bug fixes, and contributions.
 
-## Running end-to-end tests
+---
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## 🧰 Quick Reference (Legacy Instructions)
 
-## Further help
+These setup steps are preserved only for archival purposes:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Prerequisites
+- [Node.js](https://nodejs.org/) (includes npm)
+- [Angular CLI](https://cli.angular.io/)
+```bash
+npm install -g @angular/cli
+```
+## Installation
+- git clone https://github.com/Mpratyush54/classstream-frontend.git
+- cd classstream-frontend
+- npm install
+
+## Development Server
+```bash
+ng serve
+```
+- Then open [Local Url](http://localhost:4200/)
+## 🏗️ Build
+- # Development build
+```bash
+  ng build
+```
+# Production build
+```bash
+  ng build --configuration production
+```
+# Unit tests
+```bash
+ng test
+```
+# E2E tests (configure your framework: Protractor, Cypress, etc.)
+```bash
+ng e2e
+```
+## 🪦 Note
+- This branch remains accessible for reference and historical code review only.
+- No new commits or feature additions will be merged here.
+- 👉 Active development continues at: [https://github.com/Mpratyush54/classstream-frontend/tree/main)](https://github.com/Mpratyush54/classstream-frontend/tree/main)
+
+
+
+
+
+
