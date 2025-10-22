@@ -1,27 +1,70 @@
-# School
+# ClassStream Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.2.
+**❗ DEPRECATION NOTICE ❗**
+
+**This project (web-v2 branch) is deprecated as of October 22, 2025 and is no longer actively maintained.**
+
+---
+
+**✨ Desktop Version Available! ✨**
+
+**A desktop version of ClassStream built with Electron is now available! Please check [link-to-electron-repo-or-download] for the latest updates and downloads.**
+
+---
+
+This project is the frontend application for ClassStream, built with Angular.
+
+## Description
+
+(Please add a brief description of what ClassStream does. e.g., ClassStream is a web application designed to facilitate online learning by providing features for teachers and students, including video streaming, notes sharing, and live classes.)
+
+## Features
+
+*(Based on the folder structure, potential features might include:)*
+
+* User Authentication (Login, Logout, Forgot Password)
+* Teacher Dashboard
+    * Manage Students
+    * Upload Videos & Thumbnails
+    * Create & Manage Notes
+    * Send Notifications
+    * Host Live Classes
+* Student Dashboard
+    * View Videos
+    * Access Notes
+    * Join Live Classes
+    * View Notifications
+* PDF Viewer Integration
+* Responsive Design (Desktop & Mobile Views)
+
+*(Adjust this list based on the actual features implemented)*
+
+## Prerequisites
+
+Before you begin, ensure you have met the following requirements:
+
+* [Node.js](https://nodejs.org/) (which includes npm) installed. Check your version with `node -v`.
+* [Angular CLI](https://angular.io/cli) installed globally: `npm install -g @angular/cli`
+
+## Installation
+
+1.  Clone the repository:
+    ```bash
+    git clone <your-repository-url>
+    cd classstream-frontend
+    ```
+2.  Install the dependencies:
+    ```bash
+    npm install
+    ```
+    or if you use yarn:
+    ```bash
+    yarn install
+    ```
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+ng serve -o
