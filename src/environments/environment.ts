@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseurl:"http://192.168.29.231/api/"
+  baseurl:"https://pratyushes.dev/api/"
 };
 
 /*
