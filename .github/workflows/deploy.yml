@@ -33,4 +33,4 @@ jobs:
 
       - name: 🚚 Deploy to Server (dist/school/)
         run: |
-          rsync -avz --delete dist/school/ github@${{ secrets.SERVER_IP }}:/var/www/school.pratyushh.online/
+          rsync -avz --delete dist/school/browser/ github@${{ secrets.SERVER_IP }}:/var/www/school.pratyushh.online/
