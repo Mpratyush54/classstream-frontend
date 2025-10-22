@@ -1,54 +1,45 @@
-<div class="page-wrapper">
-    <app-student-header-mobile></app-student-header-mobile>
-    <app-student-menu-sidebar></app-student-menu-sidebar>
-    <div class="page-container ">
-        <app-student-header-desktop>
-
-        </app-student-header-desktop>
-        <div class="main-content ">
-            <div class="section__content section__content--p30 " style="text-align: center;">
-                <div class="container-fluid ">
-                    <div class="row">
-                        <div class="col-md-4 porr" *ngFor=" let textmodel of textmodel" (click)="navigatetoid(textmodel.id)">
-                            <div class="card border border-secondary">
-                                <div class="card-header">
-                                    <strong class="card-title">{{textmodel.title}}</strong>
-                                </div>
-                                <div class="card-body">
-                                    <p class="card-text" style="font-size: large;">
-                                        <b>Chapter Number: </b>{{textmodel.chapterno}}
-                                        <b>Chapter Name: </b>{{textmodel.ChapterName}}<br/> </p>
-                                    <p class="card-text">
-                                        <b>Subject: </b>{{textmodel.subject}}<br/>
-                                    </p>
-
-                                    <small><p class="hhhh">{{textmodel.date}} </p></small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 porr " *ngFor=" let textmodel of pdfmodel" (click)="navigatetoid(textmodel.id)">
-                            <div class="card border border-secondary ">
-                                <div class="card-header pdf">
-                                    <strong class="card-title">vfcxffcc{{textmodel.title}}</strong>
-                                </div>
-                                <div class="card-body">
-                                    <p class="card-text" style="font-size: large;">
-                                        <b>Chapter Number: </b>{{textmodel.chapterno}}
-                                        <b>Chapter Name: </b>{{textmodel.ChapterName}}<br/> </p>
-                                    <p class="card-text">
-                                        <b>Subject: </b>{{textmodel.subject}}<br/>
-                                    </p>
-
-                                    <small><p class="hhhh">{{textmodel.date}} </p></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+<div class="container-fluid center">
+    <div class="row">
+        <div class="col-md-4 porr" *ngFor=" let textmodel of textmodel" (click)="navigatetoid(textmodel.id)">
+            <div class="card border border-secondary">
+                <div class="card-header">
+                    <strong class="card-title">{{textmodel.title}}</strong>
                 </div>
+                <div class="card-body">
+                    <p class="card-text" style="font-size: large;">
+                        <b>Chapter Number: </b>{{textmodel.chapterno}}
+                        <b>Chapter Name: </b>{{textmodel.ChapterName}}<br />
+                    </p>
+                    <p class="card-text">
+                        <b>Subject: </b>{{textmodel.subject}}<br />
+                    </p>
 
+                    <small>
+                        <p class="hhhh">{{textmodel.date}} </p>
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 porr " *ngFor=" let textmodel of pdfmodel" (click)="navigatetoid(textmodel.id)">
+            <div class="card border border-secondary ">
+                <div class="card-header pdf">
+                    <strong class="card-title">vfcxffcc{{textmodel.title}}</strong>
+                </div>
+                <div class="card-body">
+                    <p class="card-text" style="font-size: large;">
+                        <b>Chapter Number: </b>{{textmodel.chapterno}}
+                        <b>Chapter Name: </b>{{textmodel.ChapterName}}<br />
+                    </p>
+                    <p class="card-text">
+                        <b>Subject: </b>{{textmodel.subject}}<br />
+                    </p>
 
+                    <small>
+                        <p class="hhhh">{{formatDate(textmodel.date) }}</p>
+                    </small>
+                </div>
             </div>
         </div>
     </div>
+
 </div>

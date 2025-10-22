@@ -1,2 +1,13 @@
-<ngx-extended-pdf-viewer [src]="urrr" height="80vh">
+<ngx-extended-pdf-viewer
+  *ngIf="!loading && !errorMsg && pdfSrc"
+  [src]="pdfSrc"
+  height="100vh"
+s  [showSidebarButton]="true"
+  [showPresentationModeButton]="true"
+  [showDownloadButton]="true"
+  [showPrintButton]="true"
+  [textLayer]="true"
+  [showHandToolButton]="true"
+  [showOpenFileButton]="false"
+  >
 </ngx-extended-pdf-viewer>

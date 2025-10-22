@@ -31,6 +31,8 @@ import { ProfileComponent } from 'src/app/asset/profile/profile.component';
 export class NavHolderComponent {
   menuService = inject(NavigationService);
   ProfileService = inject(ProfileService);
+
+
 // ProfileService
 constructor(){
   

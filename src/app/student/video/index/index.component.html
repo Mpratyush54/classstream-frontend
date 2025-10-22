@@ -1,43 +1,31 @@
-<div class="page-wrapper">
-    <app-student-header-mobile></app-student-header-mobile>
-    <app-student-menu-sidebar></app-student-menu-sidebar>
-    <div class="page-container ">
-        <app-student-header-desktop>
-
-        </app-student-header-desktop>
-        <div class="main-content ">
-            <div class="section__content section__content--p30 " style="text-align: center;">
-                <div class="container-fluid ">
+<div class="container-fluid center">
 
 
-                    <div class="col-lg-6">
+    <div class="col-lg-6">
 
 
 
-                    </div>
-                    <div>
-                        <h1 class="" style="text-align: center;"> {{meassage}}</h1>
-                    </div>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-4" *ngFor=" let data of data">
+    </div>
+    <div>
+        <h1 class="" style="text-align: center;"> {{meassage}}</h1>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4" *ngFor=" let data of data">
 
-                                <div class="card h" (click)="navigatebyurlvideo(data.id)">
-                                    <img class="card-img-top img" src="{{url}}/{{data.id}}" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h4 class="card-title mb-3">{{data.title}}</h4>
-                                        <p class="card-text">
-                                            Chapter Name:{{data.ChapterName}} <br> Chapter Number:{{data.ChapterNumber}} <br>
-                                        </p>
-                                        <div class="hello"><small>{{data.time}} <br></small></div>
+                <div class="card h" (click)="navigatebyurlvideo(data.id)">
+                    <img class="card-img-top img" src="{{url}}/{{data.id}}" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title mb-3">{{data.title}}</h4>
+                        <p class="card-text">
+                            Chapter Name:{{data.ChapterName}} <br> Chapter Number:{{data.ChapterNumber}} <br>
+                        </p>
+                        <div class="hello"><small>{{data.time | date:'dd/MM/yyyy h:mm a'}} <br></small></div>
 
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
+</div>

@@ -64,19 +64,27 @@ const routes: Routes = [
   // {path: 'teacher/student/edit/:id' ,canActivate:[AuthGuard], component: EditstudentComponent },
   // teacher/notification
   // home page of students 
-  { path: 'student', canActivate: [StudentGuard], component: IndexStudentComponent },
-  // live page for students
-  { path: 'student/live', canActivate: [StudentGuard], component: LiveComponent },
-  // live joining page
-  { path: 'student/live/:id', canActivate: [StudentGuard], component: LiveJoinComponent },
-  // Settings page for students - under devlopment 
-  { path: 'student/settings', canActivate: [StudentGuard], component: SetingsComponent },
+  {
+    path: 'student',
+    canActivate: [StudentGuard],
+    loadComponent: () => import('./student/hav-holder/hav-holder.component').then(m => m.HavHolderComponent),
+    children: [
+      { path: '', component: IndexStudentComponent },
+      // live page for students
+      { path: 'live',  component: LiveComponent },
+      // live joining page
+      { path: 'live/:id',  component: LiveJoinComponent },
+      // Settings page for students - under devlopment 
+      { path: 'settings',  component: SetingsComponent },
 
-  { path: 'student/videos', canActivate: [StudentGuard], component: IndexComponentvieo },
-  { path: 'student/notes', canActivate: [StudentGuard], component: IndexComponentnotes },
-  { path: 'student/notes/:id', canActivate: [StudentGuard], component: NotesindvidualComponent },
-  { path: 'student/play/:id', canActivate: [StudentGuard], component: PlayComponent },
+      { path: 'videos',  component: IndexComponentvieo },
+      { path: 'notes',  component: IndexComponentnotes },
+      { path: 'notes/:id',  component: NotesindvidualComponent },
+      { path: 'play/:id',  component: PlayComponent },
 
+
+    ]
+  },
 
 
   {
@@ -87,19 +95,19 @@ const routes: Routes = [
         path: '',
         loadComponent: () => import('./asset/home/home/home.component').then(m => m.HomeComponent),
       },
-         {
+      {
         path: 'about',
         loadComponent: () => import('./asset/home/about-us/about-us.component').then(m => m.AboutUsComponent),
       },
-           {
+      {
         path: 'features',
         loadComponent: () => import('./asset/home/features/features.component').then(m => m.FeaturesComponent),
       },
-                {
+      {
         path: 'contact',
         loadComponent: () => import('./asset/home/contact-us/contact-us.component').then(m => m.ContactUsComponent),
       }
-      
+
     ]
   },
   { path: 'forogot-password', component: ForgotPasswordComponent },

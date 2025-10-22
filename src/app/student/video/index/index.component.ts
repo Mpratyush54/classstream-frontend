@@ -47,4 +47,8 @@ navigatebyurl(data){
   
 // this.Routes.navigateByUrl(data)
 }
+  formatDate(value: any): string {
+    const d = new Date(value);
+    return isNaN(d.getTime()) ? String(value ?? '') : d.toLocaleDateString();
+  }
 }

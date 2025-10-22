@@ -26,4 +26,8 @@ this.pdfmodel =  res.pdf
 navigatetoid(id){
 this.Routes.navigateByUrl(`student/notes/${id}`)
 }
+  formatDate(value: any): string {
+    const d = new Date(value);
+    return isNaN(d.getTime()) ? String(value ?? '') : d.toLocaleDateString();
+  }
 }

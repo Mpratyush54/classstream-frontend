@@ -7,89 +7,49 @@ import { SimplebarAngularModule } from 'simplebar-angular';
 
 import{HlsjsPlyrDriver} from './../play-setup/play-setup.component'
 import  Hls from 'hls.js';
+import { VideoPlayerComponent } from 'src/app/asset/video.player/video.player.component';
+import { VideofetchService } from 'src/app/teacher/services/videofetch.service';
+import { StogageService } from 'src/app/services/stogage.service';
+import { VideoURL } from 'src/app/models/VideoURL';
+import { StudentVideoService } from '../../service/student-video.service';
 
 @Component({
   selector: 'app-play',
   templateUrl: './play.component.html',
   styleUrls: ['./play.component.css'],
-  standalone:false
+  standalone:true,
+  imports:[
+    VideoPlayerComponent
+  ]
 })
 
-export class PlayComponent implements OnInit  {
-  constructor(private route: ActivatedRoute) { }
+export class PlayComponent  {
+  object:VideoURL;
+  key;
+  isloading:boolean = false;
+constructor(private route: ActivatedRoute, private video:StudentVideoService,private localstorage :StogageService) { 
+//  private readonly  usernames = this.localstorage.teacher_get('teacher_username')
+//  private readonly  emails = this.localstorage.teacher_get('teacher_email')
+//  private readonly  query_tokens = this.localstorage.teacher_get('teacher_query_token')
+}
+  ngOnInit(): void {
+    this.isloading=false;
+this.video.fectchkey(this.route.snapshot.params['id']).subscribe((data) =>{
+   this.object= {
+      username:this.localstorage.student_get('student_username'),
+      email:this.localstorage.student_get('student_email'),
+      query_token:this.localstorage.student_get('student_query_token'),
+    ...data
+   }
+   console.log(this.object);
+   
+      this.isloading=true;
 
-  video_url
-  image_url
-  data:any
+})
 
-  plyr1: Plyr;
-  plyr2: Plyr;
-
-  options: Plyr.Options = {
-    captions: { active: true, update: true, language: 'en' },
-    settings: ['quality', 'speed', 'loop'],
-    quality: {
-      default: 360,
-      options: [ 1080, 720, 480, 360]
-    }
-
-
-  };
-
-  poster = 'https://bitdash-a.akamaihd.net/content/sintel/poster.png';
-
-  sources: Plyr.Source[] = [{
-    type: 'video',
-    src: 'http://localhost:4200/assets/beach/playlist.m3u8',
-  }];
-
-  hlsjsDriver1 = new HlsjsPlyrDriver(true);
-
-  hlsjsDriver2 = new HlsjsPlyrDriver(false);
-
-
-
-
-
-  languageChanged(driver: HlsjsPlyrDriver, plyr: Plyr) {
-    setTimeout(() => driver.hls.subtitleTrack = plyr.currentTrack, 50);
   }
 
-  played() {
-    this.hlsjsDriver2.load(this.sources[0].src);
-  }
-
-
-
-
-
-
-
-
-ngOnInit(): void {
-
-
-
+    // video_url = environment.baseurl + 'teacher/playvideo/' + this.route.snapshot.params['id'];
+    // image_url = environment.baseurl + 'teacher/playvideo/poster/' + this.route.snapshot.params['id'];
   
-
-  this.video_url =environment.baseurl+'teacher/playvideo/'+this.route.snapshot.params['id'];
-  this.image_url =environment.baseurl+'teacher/playvideo/poster/'+this.route.snapshot.params['id'];
-  console.log(this.video_url);
-
- this.data =  {
-    fluid: true,
-    aspectRatio:'1920:1080',
-    autoplay: true,
-    poster: `${this.image_url}` ,
-    id:this.route.snapshot.params['id'],
-    sources: [{
-    src:`${this.video_url}`,
-    type: 'video/mp4' ,
-
-  }]}
-}
-hello(){
-  console.log(true);
-
-}
 }

@@ -3,7 +3,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { MenuItem } from 'src/app/models/MenuItem';
 import { NavigationService } from 'src/app/services/navigation.service';
-import videojs from 'video.js';
 
 @Component({
   selector: 'app-menu-sidebar',

@@ -2,6 +2,7 @@ import { computed, effect, inject, Injectable, NgZone, signal } from '@angular/c
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { MenuItem } from '../models/MenuItem';
+import { StogageService } from './stogage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class NavigationService {
   showDesktopPanel = signal(false);
   private _width = signal(window.innerWidth);
   readonly isMobileSignal = computed(() => this._width() <= 768);
-
+ mainMenu: MenuItem[]
+ academicMenu: MenuItem[]
   activeItem = signal('Dashboard=');
   showSearchOverlay = signal(false);
   showMobileMenu = signal(false);
@@ -40,7 +42,32 @@ export class NavigationService {
       // Otherwise, just hide the overlay (e.g., closed via Esc)
       this.showSearchOverlay.set(false);
     }
-  } constructor(private zone: NgZone) {
+  } constructor(private zone: NgZone,private localsotage:StogageService) {
+    console.log(this.localsotage.teacher_get('teacher_username'));
+    console.log(this.localsotage.student_get('stu_username'));
+    if(this.localsotage.teacher_get('teacher_username')){
+       this.mainMenu = [
+    { name: 'Dashboard', icon: this.getIconSvg('dashboard'), url: '/teacher' },
+    { name: 'Videos', icon: this.getIconSvg('videos'), url: '/teacher/videos' },
+    { name: 'Notes', icon: this.getIconSvg('notes'), url: '/teacher/notes' },
+    { name: 'Send Notification', icon: this.getIconSvg('notification'), url: '/teacher/notification' },
+    { name: 'Live', icon: this.getIconSvg('live'), url: '/teacher/live' },
+  ];
+
+    }else if(this.localsotage.student_get('student_username')){
+      console.log(this.localsotage.student_get('username'));
+      
+  this.mainMenu = [
+    { name: 'Dashboard', icon: this.getIconSvg('dashboard'), url: '/student' },
+    { name: 'Videos', icon: this.getIconSvg('videos'), url: '/student/videos' },
+    { name: 'Notes', icon: this.getIconSvg('notes'), url: '/student/notes' },
+    { name: 'Send Notification', icon: this.getIconSvg('live'), url: '/student/live' },  ];
+
+
+  // this.academicMenu = [
+  //   { name: 'Students', icon: this.getIconSvg('students'), url: '/teacher/students' }
+  // ];
+    }
     // Listen to router events to automatically set the active item
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
@@ -118,6 +145,7 @@ export class NavigationService {
   navigate(url: string) {
     this.router.navigateByUrl(url);
   }
+  
   getIconSvg(name: string): string {
     return {
       search: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>`,
@@ -135,15 +163,4 @@ export class NavigationService {
     }[name] || '';
   }
 
-  readonly mainMenu: MenuItem[] = [
-    { name: 'Dashboard', icon: this.getIconSvg('dashboard'), url: '/teacher' },
-    { name: 'Videos', icon: this.getIconSvg('videos'), url: '/teacher/videos' },
-    { name: 'Notes', icon: this.getIconSvg('notes'), url: '/teacher/notes' },
-    { name: 'Send Notification', icon: this.getIconSvg('notification'), url: '/teacher/notification' },
-    { name: 'Live', icon: this.getIconSvg('live'), url: '/teacher/live' },
-  ];
-
-  readonly academicMenu: MenuItem[] = [
-    { name: 'Students', icon: this.getIconSvg('students'), url: '/teacher/students' }
-  ];
 }

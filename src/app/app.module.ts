@@ -83,7 +83,6 @@ import { TablesComponent } from './asset/tables/tables.component';
         StudentHeaderDesktopComponent,
         StudentHeaderMobileComponent,
         StudentMenuSidebarComponent,
-        PlayComponent,
         IndexComponentvieo,
         
         NewNotificationComponent,
@@ -93,7 +92,6 @@ import { TablesComponent } from './asset/tables/tables.component';
         IndexLiveComponent,
         IndexComponentnotes,
         NotesindvidualComponent,
-        PdfViewerComponent,
         IndexComponentStudent,
         EditstudentComponent,
         SetingsComponent,
@@ -108,7 +106,8 @@ import { TablesComponent } from './asset/tables/tables.component';
         HeaderMobileComponent,
         MenuSidebarComponent,
     VideoPlayerComponent,
-    TablesComponent
+    TablesComponent,
+    
     ],
     bootstrap: [AppComponent], 
     imports: [
@@ -121,8 +120,8 @@ import { TablesComponent } from './asset/tables/tables.component';
     LoginComponent,
     VideoComponent,
     LogoutComponent,
-
-    
+    PlayComponent,
+    PdfViewerComponent,
     MatFormFieldModule,
     MatProgressSpinnerModule,
     BrowserAnimationsModule,
