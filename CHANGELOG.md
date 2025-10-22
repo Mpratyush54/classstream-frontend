@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/Mpratyush54/classstream-frontend/compare/v1.0.0...v1.0.1) (2025-10-22)
+
+
+### Bug Fixes
+
+* **build:** add Node type definitions to support require() in environment files ([ffb0396](https://github.com/Mpratyush54/classstream-frontend/commit/ffb0396542e42241c2cd30618efc6b7580340f45))
+
 # 1.0.0 (2025-10-22)
 
 
