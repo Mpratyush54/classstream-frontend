@@ -87,7 +87,6 @@ import { TablesComponent } from './asset/tables/tables.component';
         
         NewNotificationComponent,
         NotificationdetailsComponent,
-        CreateComponent,
         JoinComponent,
         IndexLiveComponent,
         IndexComponentnotes,
@@ -122,6 +121,7 @@ import { TablesComponent } from './asset/tables/tables.component';
     LogoutComponent,
     PlayComponent,
     PdfViewerComponent,
+    CreateComponent,
     MatFormFieldModule,
     MatProgressSpinnerModule,
     BrowserAnimationsModule,

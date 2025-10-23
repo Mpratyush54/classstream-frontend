@@ -1,0 +1,537 @@
+.refddfe {
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    font-family: poppins, sans-serif !important;
+}
+
+.video-controls,
+.video-timer,
+.options {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.container {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 98% !important;
+    -webkit-user-select: none !important;
+    user-select: none !important;
+    overflow: hidden !important;
+    max-width: 900px !important;
+    border-radius: 5px !important;
+    background: #000 !important;
+    aspect-ratio: 16/9 !important;
+    position: relative !important;
+}
+
+.container.fullscreen {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100%;
+    width: 100%;
+    height: 100vh;
+    border-radius: 0
+}
+
+.wrapper {
+    margin: 0 !important;
+    padding: 0 !important;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    opacity: 0;
+    bottom: -15px;
+    transition: all .08s ease;
+
+}
+
+.background-wrapper::before {
+    margin: 0 !important;
+    padding: 0 !important;
+    content: " ";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    width: 100%;
+    aspect-ratio: 6/1;
+    z-index: -1;
+    pointer-events: none;
+
+}
+
+.container .video-thumnail {
+    margin: 0 !important;
+    padding: 0 !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+
+}
+
+
+.container.scrubbing .video-thumnail,
+.scrubbing .video-thumnail {
+
+    display: block;
+}
+
+.container.scrubbing .wrapper,
+.container.show-controls .wrapper {
+    opacity: 1;
+    bottom: 0;
+    transition: all .13s ease;
+
+}
+
+.wrapper::before {
+    margin: 0 !important;
+    padding: 0 !important;
+    content: "";
+    bottom: 0;
+    width: 100%;
+    z-index: -1;
+    position: absolute;
+    height: calc(100% + 35px);
+    pointer-events: none;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent)
+}
+
+.video-timeline {
+    height: 3px;
+    width: 100%;
+    cursor: pointer
+}
+
+.video-timeline:hover {
+    height: 6px;
+    width: 100%;
+    cursor: pointer
+}
+
+.video-timeline .progress-area {
+    height: 100%;
+    position: relative;
+    background: rgba(255, 255, 255, .6)
+}
+
+.video-timeline .progress-area span {
+
+    color: rgba(255, 255, 255, 1)
+}
+
+.progress-area span {
+    position: absolute;
+    left: 50%;
+    top: -25px;
+    font-size: 13px;
+    color: #999999;
+    pointer-events: none;
+    transform: translateX(-50%)
+}
+
+.progress-area .progress-bar {
+    width: 0%;
+    height: 100%;
+    position: relative;
+    background: #ffb0b0
+}
+
+.progress-area .progress-bar-loaded {
+    width: 0%;
+    height: 100%;
+    position: absolute;
+    background: #FFF;
+    width: 50%;
+}
+
+.progress-bar::before {
+    content: "";
+    right: 0;
+    top: 50%;
+    height: 13px;
+    width: 13px;
+    position: absolute;
+    border-radius: 50%;
+    background: #ffb0b0;
+    transform: translateY(-50%)
+}
+
+.progress-bar::before,
+.progress-area span {
+    display: none
+}
+
+.progress-bar-loaded::before,
+.progress-area span {
+    display: none
+}
+
+.video-timeline:hover .progress-bar::before,
+.video-timeline:hover .progress-area span,
+.progress-bar-loaded::before {
+    display: block;
+}
+
+.wrapper .video-controls {
+    padding: 5px 20px 10px !important;
+}
+
+.video-controls .options {
+    width: 100%;
+}
+
+.video-controls .options:first-child {
+    justify-content: flex-start;
+}
+
+.video-controls .options:last-child {
+    justify-content: flex-end;
+}
+
+.options button {
+    height: 40px;
+    width: 40px;
+    font-size: 19px;
+    border: none;
+    cursor: pointer;
+    background: 0 0;
+    color: #efefef;
+    border-radius: 3px;
+    transition: all .3s ease
+}
+
+.options button :where(i, span) {
+    height: 100%;
+    width: 100%;
+    line-height: 40px
+}
+
+.options button:hover :where(i, span) {
+    color: #fff
+}
+
+.options button:active :where(i, span) {
+    transform: scale(.9)
+}
+
+.options button span {
+    font-size: 23px
+}
+
+.options input {
+    height: 4px;
+    margin-left: 3px;
+    max-width: 75px;
+    accent-color: #ffb0b0
+}
+
+.options .video-timer {
+    color: #efefef;
+    margin-left: 15px !important;
+    font-size: 14px;
+}
+
+.video-timer .separator {
+    margin: 0 5px;
+    font-size: 16px;
+    font-family: open sans;
+}
+
+.playback-content {
+    display: flex;
+    position: relative
+}
+
+.quality-selector {
+    display: flex;
+    position: relative
+}
+
+.playback-content .speed-options {
+    margin: 0 !important;
+    padding: 0 !important;
+    position: absolute;
+    list-style: none;
+    left: -40px;
+    bottom: 40px;
+    width: 95px;
+    overflow: hidden;
+    opacity: 0;
+    border-radius: 4px;
+    pointer-events: none;
+    background: rgba(255, 255, 255, .9);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .1);
+    transition: opacity .13s ease
+}
+
+.playback-content .speed-options.show {
+    opacity: 1;
+    pointer-events: auto
+}
+
+.quality-selector .quality-options {
+    margin: 0 !important;
+    padding: 0 !important;
+    position: absolute;
+    list-style: none;
+    left: -40px;
+    bottom: 40px;
+    width: 95px;
+    overflow: hidden;
+    opacity: 0;
+    border-radius: 4px;
+    pointer-events: none;
+    background: rgba(255, 255, 255, .9);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .1);
+    transition: opacity .13s ease
+}
+
+.quality-selector .quality-options.show {
+    opacity: 1;
+    pointer-events: auto
+}
+
+.speed-options li,
+.quality-options li {
+    cursor: pointer;
+    color: #000;
+    font-size: 14px;
+    margin: 2px 0;
+    padding: 5px 0 5px 15px;
+    transition: all .1s ease
+}
+
+.speed-options li:where(:first-child, :last-child),
+.quality-options li:where(:first-child, :last-child) {
+    margin: 0
+}
+
+.speed-options li:hover,
+.quality-options li:hover {
+    background: #dfdfdf
+}
+
+.speed-options li.active,
+.quality-options li.active {
+    color: #fff;
+    background: #ffb0b0
+}
+
+.container video {
+    width: 100%;
+    aspect-ratio: 16/9;
+}
+
+.headsection {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    opacity: 0;
+    transition: all .26s ease;
+    top: 00px;
+    color: white;
+
+}
+
+.background-headsection::before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
+    width: 100%;
+    aspect-ratio: 11/1;
+    z-index: -1;
+    pointer-events: none;
+
+
+}
+
+.container.scrubbing .headsection,
+.container.show-controls .headsection {
+    opacity: 1;
+    top: 00px;
+    transition: all .26s ease;
+
+}
+
+.headsection .list-vertical li,
+.headsection .list-vertical li p {
+    display: inline;
+
+}
+
+.headsection .list-vertical li .head-Chapter {
+    font-weight: 900;
+
+}
+
+.headsection .list-vertical {
+    margin-left: 16px;
+
+}
+
+.headsection .title {
+    font-size: 24px;
+    font-weight: 800;
+    margin-left: 16px;
+    text-transform: capitalize;
+
+}
+
+.headsection .Chapter {
+    font-size: 12px;
+    font-weight: 400;
+    margin-left: 4px;
+    margin-right: 14px;
+
+}
+
+.headsection .subject {
+    font-size: 12px;
+    font-weight: 400;
+    margin-left: 4px;
+    margin-right: 14px;
+
+}
+
+.headsection .date {
+    font-size: 12px;
+    font-weight: 400;
+    margin-left: 4px;
+    margin-right: 14px;
+
+}
+
+@media screen and (max-width: 540px) {
+    .wrapper .video-controls {
+        padding: 3px 10px 7px !important;
+    }
+
+    .options input,
+    .progress-area span {
+        display: none !important;
+    }
+
+    .options button {
+        height: 30px;
+        width: 30px;
+        font-size: 17px;
+    }
+
+    .options .video-timer {
+        margin-left: 5px;
+    }
+
+    .video-timer .separator {
+        font-size: 14px;
+        margin: 0 2px
+    }
+
+    .options button :where(i, span) {
+        line-height: 30px
+    }
+
+    .options button span {
+        font-size: 21px
+    }
+
+    .options .video-timer,
+    .progress-area span,
+    .speed-options li,
+    .quality-options li {
+        font-size: 12px
+    }
+
+    .playback-content .speed-options {
+        width: 75px;
+        left: -30px;
+        bottom: 30px
+    }
+
+    .quality-selector .quality-options {
+        width: 75px;
+        left: -30px;
+        bottom: 30px
+    }
+
+    .speed-options li,
+    .quality-options li {
+        margin: 1px 0;
+        padding: 3px 0 3px 10px
+    }
+
+
+
+
+    .right .pic-in-pic {
+        display: none
+    }
+}
+
+
+.quality-options-custom .superior {
+    font-weight: 800;
+    font-size: 15px;
+    margin-bottom: 0.5px;
+}
+
+.quality-options-custom .inferor {
+    font-weight: 400;
+    font-size: 11px;
+
+
+}
+
+.image-thumnail {
+
+    --scale: 0;
+    position: absolute;
+    aspect-ratio: 16/9;
+    height: 88px;
+    top: -4.5rem;
+    border: 4px white solid;
+    box-shadow: 1px 1px 9px black;
+
+}
+
+.image-thumnail img {
+    width: 100%;
+    height: 100%;
+}
+
+.scrubbing .video-thumnail,
+.scrubbing .wrapper .video-controls {
+
+    -webkit-filter: blur(1px);
+    filter: blur(1px);
+
+}
+
+.scrubbing .wrapper .video-timeline .progress-area span {
+    display: block;
+
+}
+
+.scrubbing .wrapper .video-timeline {
+    height: 6px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.scrubbing .wrapper .video-controls {
+    pointer-events: none;
+}

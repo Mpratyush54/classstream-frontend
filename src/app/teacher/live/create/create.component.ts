@@ -1,216 +1,189 @@
-import { Component, Input, OnInit,ViewChild } from '@angular/core';
-import { SimplebarAngularModule } from 'simplebar-angular';
-
-import { HlsjsPlyrDriver } from '../../../student/video/play-setup/play-setup.component'
-import Hls from 'hls.js';
+import { Component, Input, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { HlsjsPlyrDriver } from '../../../student/video/play-setup/play-setup.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LiveService } from '../../services/live.service';
 import { environment } from 'src/environments/environment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdModalContent } from '../../new-notification/new-notification.component';
 import { NotificationService } from '../../services/notification.service';
-import { Title } from '@angular/platform-browser';
-import { data } from 'jquery';
+import { VideoPlayerHlsComponent } from 'src/app/asset/video.player.hls/video.player.hls.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css'],
-  standalone:false
+  standalone: true,
+  imports: [
+    VideoPlayerHlsComponent,
+    CommonModule,
+    FormsModule
+  ]
 })
-export class CreateComponent implements OnInit {
-  @ViewChild('mychatdiv') mychatdiv
+export class CreateComponent implements OnInit, AfterViewInit {
+  @ViewChild('mychatdiv', { static: false }) mychatdiv!: ElementRef<HTMLDivElement>;
 
-  chat = true
-  // // http://localhost:4200/teacher/live/3122462
-  constructor(private route: ActivatedRoute, private service: LiveService, private modalService: NgbModal, private Routes: Router, private service2: NotificationService) { }
-  live: boolean = false
-  banned = false
-  private class
-  private name
-  uname = 'hellothgfbv'
-  title
-  stream_url
-  stream_key
-  sources: Plyr.Source[]
-  messagearry: Array<{ user: String, message: String }> = []
-  pmesage
-  messagetext: String
-  mesage: Array<{ user: String, message: String }> = []
+  chat = true;
+  live = false;
+  banned = false;
+  uname = 'Teacher';
+  title = '';
+  stream_url = '';
+  stream_key = '';
+  id = this.route.snapshot.params['id'];
+  messagetext = '';
+  messagearry: Array<{ user: String; message: String }> = [];
+  pmesage: Array<{ user: String; message: String }> = [];
+  mesage: Array<{ user: String; message: String }> = [];
+
+  private class: string = '';
+  private name: string = '';
+
+  constructor(
+    private route: ActivatedRoute,
+    private service: LiveService,
+    private modalService: NgbModal,
+    private router: Router,
+    private notificationService: NotificationService
+  ) {}
+
   ngOnInit(): void {
+    this.joinRoom();
+    this.setupChatListeners();
+    this.loadStreamDetails();
+  }
 
+  ngAfterViewInit(): void {
+    this.scrollToBottom();
+  }
 
+  // 🔄 Scroll chat smoothly to bottom
+  private scrollToBottom(): void {
+    try {
+      if (this.mychatdiv?.nativeElement) {
+        setTimeout(() => {
+          const el = this.mychatdiv.nativeElement;
+          el.scrollTop = el.scrollHeight;
+        }, 100);
+      }
+    } catch (err) {
+      console.warn('Scroll error:', err);
+    }
+  }
 
+  private joinRoom(): void {
     this.service.joinroom(this.id);
     this.service.revoverchat(this.id);
+  }
 
+  private setupChatListeners(): void {
+    // 🧍 Banned check
     this.service.bancheck(this.id).subscribe((res) => {
-      
-      if (res) {
-        console.log(res);
-
-        if (res.data = true) {
-
-          if (res.error == true) {
-            if (res.message = '234fhfhfhdyvv') {
-              const modalRef = this.modalService.open(NgbdModalContent);
-              modalRef.componentInstance.name = `Dear User You were banned by the admin from the chat for this class and if found to be repeatedly banned by the admin your id will be suspended`;
-              this.banned = true
-            }
-          }
-        }
+      if (res?.data === true && res?.error === true && res?.message === '234fhfhfhdyvv') {
+        const modalRef = this.modalService.open(NgbdModalContent);
+        modalRef.componentInstance.name =
+          '⚠️ You were banned by the admin from the chat. Repeated bans may lead to suspension.';
+        this.banned = true;
       }
+    });
 
-    })
-
+    // 🚫 Ban user event (realtime)
     this.service.banusercall().subscribe((res) => {
-      if(res){
-      const modalRef = this.modalService.open(NgbdModalContent);
-      modalRef.componentInstance.name = `Dear User You were banned by the admin from the chat for this class and if found to be repeatedly banned by the admin your id will be suspended`;
-      this.banned = true}
-    })
-
-
-    this.service.newuserjoined().subscribe((res) => {
-      this.messagearry.push(res)
-      this.mychatdiv.nativeElement.scrollTop = this.mychatdiv.nativeElement.scrollHeight+200;
-
-    })
-
-
-    this.service.newmsg(this.id).subscribe((res) => {
-
-      this.mesage.push(res)
-      this.mychatdiv.nativeElement.scrollTop = this.mychatdiv.nativeElement.scrollHeight+200;
-
-    })
-
-    this.service.priviousmsg().subscribe((res) => {
-
-      this.pmesage = res
-      this.mychatdiv.nativeElement.scrollTop = this.mychatdiv.nativeElement.scrollHeight+200;
-
-
-    })
-    this.service.details(this.id).subscribe((res) => {
-      console.log()
-
-      if (res.status == true) {
-        this.stream_key = res.data.stream_key
-        this.stream_url = res.data.stream_url
-        this.title = res.data.Title
-        this.class = res.data.class
-        this.name = res.data.name
-        this.sources = [{
-          type: 'video',
-          src: environment.live_url + '/' + res.data.stream_key + '/index.m3u8'
-        }];
-
-
-
-      }
-    })
-
-  }
-  id = this.route.snapshot.params['id']
-  sendmessage(value) {
-
-
-    this.service.sendmesg(this.id, value.Title);
-    this.messagetext = ''
-  }
-  plyr1: Plyr;
-
-  options: Plyr.Options = {
-    autoplay: true,
-    quality: {
-      default: 360,
-      options: [1080, 720, 480, 360],
-
-    }
-
-
-  };
-
-  poster = 'https://bitdash-a.akamaihd.net/content/sintel/poster.png';
-
-
-  hlsjsDriver2 = new HlsjsPlyrDriver(true);
-
-
-  warnuser(user_id) {
-
-  }
-  banuser(user_id, message ,id) {
-    const modalRef = this.modalService.open(NgbdModalContent);
-    modalRef.componentInstance.name = `User Banned`;
-    this.service.banuser(user_id, message, this.id ,id);
-
-   
-  }
-
-
-  disablechat() {
-    this.chat = false
-  }
-  enablechat() {
-    this.chat = true
-  }
-
-  languageChanged(driver: HlsjsPlyrDriver, plyr: Plyr) {
-    setTimeout(() => driver.hls.subtitleTrack = plyr.currentTrack, 50);
-  }
-  playedtrue() {
-    //     Body: "gnb"
-    // Title: "gtfhvb"
-    // class: "2"
-
-    this.service2.notification_send({ Body: `Dear Students, Your teacher ${name} is live for you`, Title: `${this.title}`, class: `${this.class}` }).subscribe((res) => {
       if (res) {
-
-        if (res.status) {
-          if (res.status == true) {
-
-
-
-
-            if (res.error == false) {
-
-              if (res.mes) {
-
-                const modalRef = this.modalService.open(NgbdModalContent);
-                modalRef.componentInstance.name = `The Notifcations were sent sucessfully and the Id was ${res.mes}`;
-              }
-            }
-
-          }
-        }
+        const modalRef = this.modalService.open(NgbdModalContent);
+        modalRef.componentInstance.name =
+          '⚠️ You were banned by the admin from the chat.';
+        this.banned = true;
       }
-    })
-    this.played()
-    this.play()
-    this.live = true
-  }
-  pausetrue() {
-    this.Routes.navigateByUrl('/teacher/live')
+    });
 
-  }
-  played() {
+    // 👋 New user joined
+    this.service.newuserjoined().subscribe((res) => {
+      this.messagearry.push(res);
+      this.scrollToBottom();
+    });
 
-    this.hlsjsDriver2.load(this.sources[0].src);
+    // 💬 New incoming message
+    this.service.newmsg(this.id).subscribe((res) => {
+      this.mesage.push(res);
+      this.scrollToBottom();
+    });
 
-  }
-  play() {
-    if (this.sources) {
-      this.plyr1.play()
-    }
+    // 📜 Previous chat messages
+    this.service.priviousmsg().subscribe((res) => {
+      this.pmesage = [res];
+      this.scrollToBottom();
+    });
   }
 
-  copy(data) {
+  private loadStreamDetails(): void {
+    this.service.details(this.id).subscribe((res) => {
+      if (res?.status === true && res?.data) {
+        this.stream_key = res.data.stream_key;
+        this.stream_url = res.data.stream_url;
+        this.title = res.data.Title;
+        this.class = res.data.class;
+        this.name = res.data.name;
+      }
+    });
+  }
+
+  // 📩 Send chat message
+  sendmessage(formValue: any): void {
+    if (!formValue?.Title?.trim()) return;
+    this.service.sendmesg(this.id, formValue.Title.trim());
+    this.mesage.push({ user: this.uname, message: formValue.Title });
+    this.scrollToBottom();
+    this.messagetext = '';
+  }
+
+  // 🚫 Ban / Warn / Control actions
+  banuser(user_id: String, message: String, id: String): void {
+    const modalRef = this.modalService.open(NgbdModalContent);
+    modalRef.componentInstance.name = '🚫 User Banned';
+    this.service.banuser(user_id, message, this.id, id);
+  }
+
+  warnuser(user_id: String): void {
+    const modalRef = this.modalService.open(NgbdModalContent);
+    modalRef.componentInstance.name = `⚠️ Warning sent to user ${user_id}`;
+  }
+
+  disablechat(): void {
+    this.chat = false;
+  }
+
+  enablechat(): void {
+    this.chat = true;
+  }
+
+  // 🔔 Start live session and send notifications
+  playedtrue(): void {
+    this.notificationService
+      .notification_send({
+        Body: `Dear Students, Your teacher ${this.name} is live now.`,
+        Title: this.title,
+        class: this.class,
+      })
+      .subscribe((res) => {
+        if (res?.status === true && res?.error === false && res?.mes) {
+          const modalRef = this.modalService.open(NgbdModalContent);
+          modalRef.componentInstance.name = `✅ Notifications sent successfully! ID: ${res.mes}`;
+        }
+      });
+
+    this.live = true;
+  }
+
+  pausetrue(): void {
+    this.router.navigateByUrl('/teacher/live');
+  }
+
+  // 📋 Copy text utility
+  copy(data: string): void {
     navigator.clipboard.writeText(data);
     const modalRef = this.modalService.open(NgbdModalContent);
-    modalRef.componentInstance.name = "Copied the text: " + data;
-
+    modalRef.componentInstance.name = '📋 Copied: ' + data;
   }
-
 }

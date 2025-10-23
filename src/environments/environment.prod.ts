@@ -1,9 +1,9 @@
 export const environment = {
   production: true,
-  baseurl:"https://mepratyush.tk/api",
-  soket_url:"https://mepratyush.tk/",
-  live_url:"https://mepratyush.tk/live",
-  media_url:"https://media.pratyushes.dev"
+  baseurl: "https://api.pratyushes.dev/api/",
+  soket_url: "https://api.pratyushes.dev/",
+  live_url: "https://pratyushes.dev:8000/live/",
+  media_url: "https://media.pratyushes.dev",
 
 
 };

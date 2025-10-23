@@ -3,15 +3,11 @@
             <div class="container-fluid">
                 <div class="rowsss  align-items-start">
                     <div class="col-6">
-                        <div *ngIf="sources">
+                        <div *ngIf="stream_key">
                             <div>
 
-                                <!-- <div style="width: 100%;" mat-card-image plyr [plyrPlaysInline]="true"
-                                    [plyrCrossOrigin]="true" [plyrDriver]="hlsjsDriver2" [plyrOptions]="options"
-                                    [plyrSources]="sources" [plyrPoster]="poster" (plyrInit)="plyr1 = $event"
-                                    (plyrLanguageChange)="languageChanged(hlsjsDriver2, plyr1)" autoplay class=""></div>
 
-                            </div> -->
+                            <app-video-player-hls [stream_key]="stream_key" *ngIf="stream_key"></app-video-player-hls>
                             <div class="title">
 
                                 <div class="row uppper ">
