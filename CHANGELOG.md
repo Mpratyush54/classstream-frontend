@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Mpratyush54/classstream-frontend/compare/v1.0.2...v1.1.0) (2025-12-04)
+
+
+### Features
+
+* **policies:** add Privacy Policy, Email Policy, and Terms of Service components with routing ([dedcb25](https://github.com/Mpratyush54/classstream-frontend/commit/dedcb250fe72be799dfe2775cb5b312e1c194ef9))
+
 ## [1.0.2](https://github.com/Mpratyush54/classstream-frontend/compare/v1.0.1...v1.0.2) (2025-10-22)
 
 
