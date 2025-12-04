@@ -1,0 +1,271 @@
+.disabled-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 75vh;
+  padding: 20px;
+  background: #f7f7ff;
+}
+
+.card {
+  max-width: 450px;
+  background: #fff;
+  padding: 30px 35px;
+  border-radius: 12px;
+  box-shadow: 0 2px 15px rgba(0, 0, 50, 0.1);
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.7rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.message {
+  margin-bottom: 10px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.email-link {
+  display: inline-block;
+  margin: 12px 0;
+  color: #4a4af4;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.email-link:hover {
+  text-decoration: underline;
+}
+
+.small-note {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.btn {
+  margin-top: 20px;
+  padding: 10px 18px;
+  background: #4a4af4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  background: #3737d1;
+}
+.navbar {
+  width: 100%;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  font-family: 'Inter', sans-serif;
+}
+
+/* 🌟 Logo */
+.logo {
+cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.logo-box {
+  background-color: #6b3ef9;
+  color: white;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 18px;
+}
+
+.logo-text {
+  color: #222;
+}
+
+/* 🔗 Navbar Links */
+.navbar-center a {
+  margin: 0 15px;
+  color: #333;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar-center a:hover {
+  color: #6b3ef9;
+}
+
+.navbar-center .active {
+  color: #6b3ef9;
+  font-weight: 600;
+  border-bottom: 2px solid #6b3ef9;
+}
+
+/* 🎛 Buttons */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn {
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 8px 18px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+/* Login - outlined */
+.btn.login {
+  border: 1.5px solid #6b3ef9;
+  color: #6b3ef9;
+  background: transparent;
+}
+
+.btn.login:hover {
+  background: #f2ebff;
+}
+
+/* Sign Up - solid */
+.btn.signup {
+  background: linear-gradient(135deg, #6b3ef9, #8a5bff);
+  color: white;
+}
+
+.btn.signup:hover {
+  box-shadow: 0 0 10px rgba(107, 62, 249, 0.5);
+  transform: translateY(-2px);
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .navbar-center {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+.footer {
+  background: #0e0b1f;
+  color: #eae6ff;
+  padding: 60px 10% 30px;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+/* 🪴 Brand */
+.footer-brand {
+  flex: 1 1 300px;
+}
+
+.footer-brand .logo {
+  color: #a88cff;
+  font-weight: 700;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.footer-brand p {
+  color: #c7c4e0;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+/* 🔗 Links */
+.footer-links {
+  flex: 1 1 200px;
+}
+
+.footer-links h3,
+.footer-contact h3 {
+  color: #ffffff;
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.footer-links ul,
+.footer-contact ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links ul li,
+.footer-contact ul li {
+  margin-bottom: 10px;
+}
+
+.footer-links a,
+.footer-contact a {
+  color: #c7c4e0;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-size: 14px;
+}
+
+.footer-links a:hover,
+.footer-contact a:hover {
+  color: #a88cff;
+}
+
+/* 🌐 Icons */
+.icon {
+  margin-right: 6px;
+  color: #a88cff;
+}
+
+/* 🧭 Bottom line */
+.footer-bottom {
+  text-align: center;
+  margin-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 15px;
+  font-size: 13px;
+  color: #b8b5cc;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-links,
+  .footer-contact {
+    margin-top: 20px;
+  }
+}

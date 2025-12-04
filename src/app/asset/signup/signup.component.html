@@ -1,25 +1,29 @@
-<header class="navbar">
-  <div class="navbar-left" routerLink="">
-    <div class="logo">
-      <span class="logo-box">C</span>
-      <span class="logo-text">Class Stream</span>
-    </div>
+<div class="disabled-container">
+  <div class="card">
+    <h1>Sign Up Temporarily Unavailable</h1>
+
+    <p class="message">
+      We’re currently improving our authentication system and have
+      temporarily disabled new sign-ups.
+    </p>
+
+    <p class="message">
+      We sincerely apologize for the inconvenience.  
+      If you need access, please contact us at:
+    </p>
+
+    <a class="email-link" href="mailto:pratyush.mishra@btech.christuniversity.in">
+      pratyush.mishra@btech.christuniversity.in
+    </a>
+
+    <p class="small-note">
+      We will enable new account registrations as soon as possible.
+      Thank you for your patience ❤️
+    </p>
+
+    <button class="btn" routerLink="login">Go to Login</button>
   </div>
-
-  <nav class="navbar-center">
-    <a routerLink="/about" routerLinkActive="active">About</a>
-    <a routerLink="/features" routerLinkActive="active">Features</a>
-    <a routerLink="/contact" routerLinkActive="active">Contact</a>
-  </nav>
-
-  <div class="navbar-right">
-    <button class="btn login" routerLink="/login">Login</button>
-    <button class="btn signup" routerLink="/signup">Sign Up</button>
-  </div>
-</header>
-
-<router-outlet></router-outlet>
-
+</div>
 <footer class="footer">
   <div class="footer-container">
     <!-- 🪴 Left Section -->

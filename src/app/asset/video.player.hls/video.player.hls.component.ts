@@ -16,8 +16,9 @@ export class VideoPlayerHlsComponent {
   @Input() stream_key?: string; // may arrive asynchronously
   @Input() autoPlay = true;
   @Input() muted = true;
+  private lastFragmentTime?: number;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngAfterViewInit(): void {
     this.mainVideo = this.videoRef?.nativeElement ?? undefined;
@@ -64,7 +65,7 @@ export class VideoPlayerHlsComponent {
       return;
     }
 
-    const hlsUrl = `${environment.live_url}${this.stream_key}/index.m3u8`;
+    const hlsUrl = `${environment.live_url}${this.stream_key}.m3u8`;
     console.log('🎬 Initializing HLS with URL:', hlsUrl);
 
     if (!this.mainVideo) {
@@ -90,6 +91,13 @@ export class VideoPlayerHlsComponent {
         enableWorker: true,
         lowLatencyMode: true,
         liveSyncDuration: 2,
+        liveMaxLatencyDuration: 8,
+        maxBufferLength: 10,
+        maxBufferSize: 60 * 1000 * 1000, // 60MB
+        maxMaxBufferLength: 20,
+        backBufferLength: 30,
+        startPosition: -1,
+        appendErrorMaxRetry: 5
       });
 
       this.hls.loadSource(hlsUrl);
@@ -103,8 +111,37 @@ export class VideoPlayerHlsComponent {
       });
 
       this.hls.on(Hls.Events.ERROR, (event, data) => {
-        console.error('❌ HLS error', data);
+        console.warn('⚠️ HLS error:', data.type, data.details, data.fatal);
+        if (data.fatal) {
+          switch (data.type) {
+            case Hls.ErrorTypes.NETWORK_ERROR:
+              console.log('🔄 Trying to recover network error');
+              this.hls?.startLoad();
+              break;
+            case Hls.ErrorTypes.MEDIA_ERROR:
+              console.log('🔄 Trying to recover media error');
+              this.hls?.recoverMediaError();
+              break;
+            default:
+              console.error('💀 Unrecoverable error. Reloading...');
+              this.initializeHls();
+              break;
+          }
+        }
       });
+      this.hls.on(Hls.Events.FRAG_LOADING, () => {
+        this.lastFragmentTime = Date.now();
+      });
+
+      setInterval(() => {
+        if (this.lastFragmentTime && Date.now() - this.lastFragmentTime > 10000) {
+          console.warn('⚠️ No fragments loaded recently, reconnecting...');
+          this.initializeHls();
+        }
+      }, 10000);
+
+
+
     } else {
       console.error('❌ HLS not supported in this browser');
     }

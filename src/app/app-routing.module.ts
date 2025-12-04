@@ -27,6 +27,10 @@ import { VideoUploadFileComponent } from './teacher/video-upload-file/video-uplo
 import { VideoUploadComponent } from './teacher/video-upload/video-upload.component';
 import { VideoComponent } from './teacher/video/video.component';
 import { VideoPlayerWrapperComponent } from './teacher/video.player.wrapper/video.player.wrapper.component';
+import { PrivacyPolicyComponent } from './asset/policy/privacy-policy/privacy-policy.component';
+import { EmailPolicyComponent } from './asset/policy/email-policy/email-policy.component';
+import { TermsOfServiceComponent } from './asset/policy/terms-of-service/terms-of-service.component';
+import { SignupComponent } from './asset/signup/signup.component';
 
 const routes: Routes = [
   {
@@ -106,10 +110,17 @@ const routes: Routes = [
       {
         path: 'contact',
         loadComponent: () => import('./asset/home/contact-us/contact-us.component').then(m => m.ContactUsComponent),
-      }
+      },
+
+
 
     ]
   },
+  { path: 'privacy-policy', component: PrivacyPolicyComponent },
+  { path: 'email-policy', component: EmailPolicyComponent },
+  { path: 'terms-of-service',component: TermsOfServiceComponent },
+  { path: 'signup',component: SignupComponent },
+
   { path: 'forogot-password', component: ForgotPasswordComponent },
   { path: 'forogot-password/:username/:hash', component: ResetComponent },
   {
