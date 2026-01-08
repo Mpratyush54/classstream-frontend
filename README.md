@@ -37,7 +37,7 @@ This is the Angular frontend for the Educational Content Platform. It provides d
 1.  **Clone the repository:**
     ```bash
     git clone https://github.com/Mpratyush54/myproject-frontend
-    cd [your-project-directory]/[frontend-folder-name] # Navigate to the Angular app directory
+    cd myproject-frontend # Navigate to the Angular app directory
     ```
 2.  **Install dependencies:**
     ```bash
