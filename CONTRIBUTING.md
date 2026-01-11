@@ -19,7 +19,7 @@ We appreciate your interest in contributing! Here are some specific guidelines t
 ### Code Style & Quality
 
 * **Follow Existing Style:** Please try to match the coding style and patterns used throughout the existing codebase.
-* **Linting:** We use ESLint and Prettier (*if applicable, otherwise remove*) to enforce code style. Run `ng lint` before committing to catch potential issues.
+* **Linting:** We use ESLint and Prettier to enforce code style. Run `ng lint` before committing to catch potential issues.
 * **TypeScript Best Practices:** Utilize TypeScript features like strong typing where appropriate. Avoid using `any` unless necessary.
 * **Component Structure:** Follow Angular best practices for component organization, inputs/outputs, and lifecycle hooks. Use standalone components where appropriate for new features.
 * **RxJS:** Use RxJS operators effectively for handling asynchronous operations. Ensure subscriptions are properly managed (e.g., using `async` pipe or unsubscribing manually) to prevent memory leaks.
