@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/Mpratyush54/classstream-frontend/compare/v1.1.3...v1.1.4) (2026-09-22)
+
+
+### Bug Fixes
+
+* player binds real title/chapter/poster, timeline thumbs from processed assets, visible license errors ([4e38f5f](https://github.com/Mpratyush54/classstream-frontend/commit/4e38f5f9385b3367bd36ac3ce9d3e9f8893d6fdc))
+
 ## [1.1.3](https://github.com/Mpratyush54/classstream-frontend/compare/v1.1.2...v1.1.3) (2026-09-22)
 
 
