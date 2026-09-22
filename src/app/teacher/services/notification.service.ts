@@ -11,10 +11,6 @@ import { DeviceDetectorService} from 'ngx-device-detector';
   providedIn: 'root'
 })
 export class NotificationService {
-private usernames: string;
-private emails: string;
-private query_tokens: string;
-
   constructor(private http:HttpClient ,private Routes:Router ,private localstorage :StogageService,private DeviceDetectorService:DeviceDetectorService ){
    }
 
