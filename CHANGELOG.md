@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/Mpratyush54/classstream-frontend/compare/v1.1.1...v1.1.2) (2026-09-22)
+
+
+### Bug Fixes
+
+* lazy credentials in all remaining services (notification/upload/signup/notes/settings) + student header init ([59d331e](https://github.com/Mpratyush54/classstream-frontend/commit/59d331e9dd608021b4a9b46d38d03caf8ba59684))
+
 ## [1.1.1](https://github.com/Mpratyush54/classstream-frontend/compare/v1.1.0...v1.1.1) (2026-09-22)
 
 
