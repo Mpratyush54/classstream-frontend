@@ -23,11 +23,15 @@ export class StudentHeaderDesktopComponent implements OnInit {
   notifiactionall
 
 
-  name = this.localstorges.student_get('student_name')
-  email =  this.localstorges.student_get('student_email') 
+  name = '';
+  email = '';
   private readonly publicKey = 'BL1k4svygg7piYjqcY8MH8XW7QAt5T9QU20hWn9wQgLgw6zgVpOOHYmGza1kknjWuc1S-rkkKKazzqGBXpEEWzU';
-  
+
     ngOnInit(): void {
+      try {
+        this.name = this.localstorges.student_get('student_name') || '';
+        this.email = this.localstorges.student_get('student_email') || '';
+      } catch { this.name = ''; this.email = ''; }
 
       this.notification.notificationno().subscribe((res:any)=>{
         if(  res  == undefined ){

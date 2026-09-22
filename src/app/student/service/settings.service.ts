@@ -11,11 +11,20 @@ import { catchError, map, retry } from 'rxjs/operators';
 export class SettingsService {
 
   constructor(private http: HttpClient , private Routes: Router ,private localstorage :StogageService) { }
-  
- usernames = this.localstorage.student_get('student_username')  
- emails =  this.localstorage.student_get('student_email') 
- query_tokens = this.localstorage.student_get('student_query_token')  
- student_class = this.localstorage.student_get('student_class')  
+
+  // Lazily read credentials — constructor snapshot goes stale after login
+  get usernames(): string {
+    try { return this.localstorage.student_get('student_username') ?? ''; } catch { return ''; }
+  }
+  get emails(): string {
+    try { return this.localstorage.student_get('student_email') ?? ''; } catch { return ''; }
+  }
+  get query_tokens(): string {
+    try { return this.localstorage.student_get('student_query_token') ?? ''; } catch { return ''; }
+  }
+  get student_class(): string {
+    try { return this.localstorage.student_get('student_class') ?? ''; } catch { return ''; }
+  }
 
  divices(){
   

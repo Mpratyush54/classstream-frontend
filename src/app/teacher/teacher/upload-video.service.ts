@@ -15,9 +15,15 @@ import { StogageService } from 'src/app/services/stogage.service';
 export class UploadVideoService {
 
   constructor(private http:HttpClient ,private Routes:Router ,private localstorage :StogageService) { }
- private readonly  usernames = this.localstorage.teacher_get('teacher_username')
- private readonly  emails = this.localstorage.teacher_get('teacher_email')
- private readonly  query_tokens = this.localstorage.teacher_get('teacher_query_token')
+private get usernames(): string {
+    try { return this.localstorage.teacher_get('teacher_username') ?? ''; } catch { return ''; }
+  }
+  private get emails(): string {
+    try { return this.localstorage.teacher_get('teacher_email') ?? ''; } catch { return ''; }
+  }
+  private get query_tokens(): string {
+    try { return this.localstorage.teacher_get('teacher_query_token') ?? ''; } catch { return ''; }
+  }
   upload_video(file , id1){
 
     const fd = new FormData()
