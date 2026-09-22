@@ -8,10 +8,10 @@ import { SimplebarAngularModule } from 'simplebar-angular';
 import{HlsjsPlyrDriver} from './../play-setup/play-setup.component'
 import  Hls from 'hls.js';
 import { VideoPlayerComponent } from 'src/app/asset/video.player/video.player.component';
-import { VideofetchService } from 'src/app/teacher/services/videofetch.service';
 import { StogageService } from 'src/app/services/stogage.service';
 import { VideoURL } from 'src/app/models/VideoURL';
 import { StudentVideoService } from '../../service/student-video.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-play',
@@ -19,6 +19,7 @@ import { StudentVideoService } from '../../service/student-video.service';
   styleUrls: ['./play.component.css'],
   standalone:true,
   imports:[
+    CommonModule,
     VideoPlayerComponent
   ]
 })
@@ -27,24 +28,35 @@ export class PlayComponent  {
   object:VideoURL;
   key;
   isloading:boolean = false;
-constructor(private route: ActivatedRoute, private video:StudentVideoService,private localstorage :StogageService) { 
-//  private readonly  usernames = this.localstorage.teacher_get('teacher_username')
-//  private readonly  emails = this.localstorage.teacher_get('teacher_email')
-//  private readonly  query_tokens = this.localstorage.teacher_get('teacher_query_token')
+  loadError: string | null = null;
+constructor(private route: ActivatedRoute, private video:StudentVideoService,private localstorage :StogageService) {
 }
   ngOnInit(): void {
     this.isloading=false;
-this.video.fectchkey(this.route.snapshot.params['id']).subscribe((data) =>{
-   this.object= {
-      username:this.localstorage.student_get('student_username'),
-      email:this.localstorage.student_get('student_email'),
-      query_token:this.localstorage.student_get('student_query_token'),
-    ...data
-   }
-   console.log(this.object);
-   
-      this.isloading=true;
+    this.loadError = null;
+this.video.fectchkey(this.route.snapshot.params['id']).subscribe({
+  next: (data) => {
+    if (!data || data.status !== true) {
+      this.loadError = (data as any)?.message || 'Failed to load video (issue-key returned error)';
+      return;
+    }
+    if (!data?.video?.urls || (!data.video.urls['1080p'] && !data.video.urls['720p'] && !data.video.urls['480p'])) {
+      this.loadError = 'Video has no processed streams yet (urls missing). It may still be processing.';
+      return;
+    }
+    this.object = {
+      username: this.localstorage.student_get('student_username'),
+      email: this.localstorage.student_get('student_email'),
+      query_token: this.localstorage.student_get('student_query_token'),
+      ...data
+    }
+    console.log(this.object);
 
+    this.isloading = true;
+  },
+  error: (err) => {
+    this.loadError = err?.message || 'Failed to load video. Please retry.';
+  }
 })
 
   }

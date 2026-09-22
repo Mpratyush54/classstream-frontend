@@ -17,20 +17,24 @@ export class IntersepterService implements HttpInterceptor {
     '/video/heartbeat',
     '/ping',
   ];
+  private pending = 0;
   constructor(private LoaderService:LoaderService , private service:TypeService) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const shouldSkip = this.excludedUrls.some((url) => req.url.includes(url));
 
     if (!shouldSkip) {
+      this.pending++;
       this.LoaderService.Isloading.next(true);
     }
 
 
     return next.handle(req).pipe(finalize(()=>{
-    
-      setTimeout(() => {
-        this.LoaderService.Isloading.next(false)
-      }, 100);
+      if (shouldSkip) return;
+      this.pending = Math.max(0, this.pending - 1);
+      // No setTimeout — the old 100ms delay made every hit feel 1-2s slow with flicker
+      if (this.pending === 0) {
+        this.LoaderService.Isloading.next(false);
+      }
     }) , )
   }
 }

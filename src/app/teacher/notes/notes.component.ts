@@ -50,7 +50,8 @@ export class NgbdModalContent {
   standalone: false
 })
 export class NotesComponent implements OnInit {
-isloading:boolean;
+isloading:boolean = false;
+model: any[] = [];
 
   constructor(private service: NotesService, private modalService: NgbModal, private Routes: Router
   ) { }
@@ -91,9 +92,8 @@ isloading:boolean;
     },
 
   ]
-  meassage: any
+  meassage: any = ''
   meassagenot: boolean = false
-  model
 
 
   handleButtonClick(event: { action: string; row: any }) {
@@ -182,10 +182,10 @@ isloading:boolean;
         if (res.status) {
           if (res.status == true) {
             if (res.error == false) {
-              // 
+              //
               const modalRef = this.modalService.open(NgbdModalContent);
               modalRef.componentInstance.name = `The Note was deleted sucessfully with id ${data}`;
-              this.loaddata()
+              this.loadall()
             }
           }
         }

@@ -1,3 +1,9 @@
+<div *ngIf="loadError" class="alert alert-danger m-3" role="alert">
+    {{ loadError }}
+</div>
+<div *ngIf="!isloading && !loadError" class="text-center p-4">
+    Loading video…
+</div>
 <div *ngIf="isloading">
     <app-video-player [data_object]="object"  ></app-video-player>
 </div>

@@ -69,14 +69,20 @@
 /* Mobile */
 .mobile-wrapper { padding: 6px; }
 .mobile-cards {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 12px;
+}
+/* 2-col on large phones / small tablets so cards don't stretch full-width vertically */
+@media (min-width: 560px) {
+  .mobile-cards { grid-template-columns: repeat(2, 1fr); }
 }
 .mobile-card {
   background: #fff;
   border-radius: 12px;
   padding: 10px 12px;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .card-row { margin-bottom: 8px; }
 .label {
@@ -116,10 +122,10 @@
   opacity: 0.9;
 }
 
-/* === Force custom background and text color === */
+/* === Force custom background and text color (via --custom-bg/--custom-fg style bindings) === */
 ::ng-deep .mat-mdc-raised-button.custom-action-button {
-  background-color: attr(data-bg color, #3f51b5) !important;
-  color: attr(data-fg color, #fff) !important;
+  background-color: var(--custom-bg, #3f51b5) !important;
+  color: var(--custom-fg, #fff) !important;
 }
 
 /* Alternative reliable fallback using MDC vars */
@@ -132,9 +138,9 @@
 ::ng-deep .mat-mdc-raised-button.custom-action-button .mdc-button__label {
   color: inherit !important;
 }
-@media (min-width: 613px) {
+@media (max-width: 612px) {
   .mat-mdc-paginator {
-    flex-direction: column; /* stack content vertically */
+    flex-direction: column; /* stack content vertically on small screens only */
     align-items: stretch;
     text-align: center;
     gap: 0.75rem;

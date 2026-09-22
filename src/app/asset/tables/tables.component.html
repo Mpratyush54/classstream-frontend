@@ -1,5 +1,5 @@
 <!-- DESKTOP: Table view -->
-<div *ngIf="!navigationService.isMobileSignal(); else mobileView" class="table-wrapper ">
+<div *ngIf="!navigationService.isMobileSignal(); else mobileView" class="table-wrapper">
   <div class="table-toolbar">
     <mat-icon>search</mat-icon>
     <input matInput placeholder="Search..." [(ngModel)]="searchTerm" (input)="applyFilter()"
@@ -76,8 +76,8 @@
   *ngFor="let btn of actionButtons"
   mat-raised-button
   class="custom-action-button"
-  [attr.data-bg]="btn.color || '#3f51b5'"
-  [attr.data-fg]="btn.textColor || '#fff'"
+  [style.--custom-bg]="btn.color || '#3f51b5'"
+  [style.--custom-fg]="btn.textColor || '#fff'"
   (click)="onButtonClick(btn.action, row)"
 >
   <mat-icon *ngIf="btn.icon" style="margin-right: 4px;">{{ btn.icon }}</mat-icon>

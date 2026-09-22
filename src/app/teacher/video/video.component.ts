@@ -22,28 +22,33 @@ TablesComponent
   ]
 })
 export class VideoComponent implements OnInit {
-  model: any;
-  model2: any;
-  meassage: string;
-  meassagenot: boolean;
+  model: any[] = [];
+  model2: any[] = [];
+  meassage: string = '';
+  meassagenot: boolean = false;
   image_url: string;
   constructor(private service : VideofetchService ,private Routes: Router , private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.image_url =environment.baseurl+'teacher/playvideo/poster/'
 
-    this.service.playvideo().subscribe((res)=>{
-   
-      if(Array.isArray(res.process) && res.process.length <= 0 && Array.isArray(res.processed) && res.processed.length <= 0 ){
-        this.meassage = 'No records Found'
-      }else{
-      
-this.meassagenot=true
-
-        this.model = res.processed 
-        this.model2 = res.process
+    this.service.playvideo().subscribe({
+      next: (res: any) => {
+        if(!res){
+          this.meassage = 'No records Found';
+          return;
+        }
+        if(Array.isArray(res.process) && res.process.length <= 0 && Array.isArray(res.processed) && res.processed.length <= 0 ){
+          this.meassage = 'No records Found'
+        }else{
+          this.meassagenot=true
+          this.model = res.processed || []
+          this.model2 = res.process || []
+        }
+      },
+      error: () => {
+        this.meassage = 'Failed to load videos. Please retry.';
       }
-
     })
   }
   displayedColumns: DisplayedColumns[] = [
@@ -59,7 +64,7 @@ this.meassagenot=true
       },
       {
         displayName: "title",
-        type: "Number",
+        type: "Text",
         key: 'title'
       },
       {

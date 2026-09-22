@@ -39,12 +39,21 @@ var datas = {regestration:value}
 student_get(field_name){
 const data = localStorage.getItem('data')
 const key = localStorage.getItem('username')
-var deData = CryptoJS.AES.decrypt(data , key)
-
-var json =JSON.parse(decodeURIComponent(deData.toString(CryptoJS.enc.Utf8)))
-
-
-return json[field_name]
+if (!data || !key) return '';
+try {
+  var deData = CryptoJS.AES.decrypt(data , key)
+  const utf8 = deData.toString(CryptoJS.enc.Utf8);
+  if (!utf8) return '';
+  // Encrypt path uses raw JSON.stringify (no encodeURIComponent), so try raw first
+  try {
+    var json = JSON.parse(utf8);
+  } catch {
+    var json = JSON.parse(decodeURIComponent(utf8));
+  }
+  return json[field_name] ?? '';
+} catch {
+  return '';
+}
 }
 
 
@@ -67,14 +76,22 @@ localStorage.setItem('username' , teacher_username)
   }
 
   teacher_get(field_name){
-    
     const data = localStorage.getItem('data')
     const key = localStorage.getItem('username')
-    var deData = CryptoJS.AES.decrypt(data , key)
-    
-    var json =JSON.parse(decodeURIComponent(deData.toString(CryptoJS.enc.Utf8)))
-    
-    
-    return json[field_name]
+    if (!data || !key) return '';
+    try {
+      var deData = CryptoJS.AES.decrypt(data , key)
+      const utf8 = deData.toString(CryptoJS.enc.Utf8);
+      if (!utf8) return '';
+      // Encrypt path uses raw JSON.stringify (no encodeURIComponent), so try raw first
+      try {
+        var json = JSON.parse(utf8);
+      } catch {
+        var json = JSON.parse(decodeURIComponent(utf8));
+      }
+      return json[field_name] ?? '';
+    } catch {
+      return '';
+    }
     }
 }

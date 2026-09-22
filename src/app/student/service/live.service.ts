@@ -16,10 +16,18 @@ export class LiveService {
   constructor(private http: HttpClient, private Routes: Router, private localstorage: StogageService) { }
 
 
-  usernames = this.localstorage.student_get('student_username')
-  emails = this.localstorage.student_get('student_email')
-  query_tokens = this.localstorage.student_get('student_query_token')
-  student_class = this.localstorage.student_get('student_class')
+  get usernames(): string {
+    try { return this.localstorage.student_get('student_username') ?? ''; } catch { return ''; }
+  }
+  get emails(): string {
+    try { return this.localstorage.student_get('student_email') ?? ''; } catch { return ''; }
+  }
+  get query_tokens(): string {
+    try { return this.localstorage.student_get('student_query_token') ?? ''; } catch { return ''; }
+  }
+  get student_class(): string {
+    try { return this.localstorage.student_get('student_class') ?? ''; } catch { return ''; }
+  }
 
   details() {
 
@@ -98,8 +106,14 @@ console.log(data);
 
 
 
-  // this is cchat paart of thing
-  private socket = io(environment.soket_url)
+  // this is cchat paart of thing — lazy connect so we don't open a socket on every page load
+  private _socket: ReturnType<typeof io> | null = null;
+  private get socket() {
+    if (!this._socket) {
+      this._socket = io(environment.soket_url, { autoConnect: true });
+    }
+    return this._socket;
+  }
 
   joinroom(room) {
     var data = { user: this.usernames, room: room }

@@ -21,22 +21,33 @@ export class VideoPlayerWrapperComponent implements OnInit {
   object:VideoURL;
   key;
   isloading:boolean = false;
-constructor(private route: ActivatedRoute, private video:VideofetchService,private localstorage :StogageService) { 
-//  private readonly  usernames = this.localstorage.teacher_get('teacher_username')
-//  private readonly  emails = this.localstorage.teacher_get('teacher_email')
-//  private readonly  query_tokens = this.localstorage.teacher_get('teacher_query_token')
+  loadError: string | null = null;
+constructor(private route: ActivatedRoute, private video:VideofetchService,private localstorage :StogageService) {
 }
   ngOnInit(): void {
     this.isloading=false;
-this.video.fectchkey(this.route.snapshot.params['id']).subscribe((data) =>{
-   this.object= {
-      username:this.localstorage.teacher_get('teacher_username'),
-      email:this.localstorage.teacher_get('teacher_email'),
-      query_token:this.localstorage.teacher_get('teacher_query_token'),
-    ...data
-   }
-      this.isloading=true;
-
+    this.loadError = null;
+this.video.fectchkey(this.route.snapshot.params['id']).subscribe({
+  next: (data) => {
+    if (!data || data.status !== true) {
+      this.loadError = (data as any)?.message || 'Failed to load video (issue-key returned error)';
+      return;
+    }
+    if (!data?.video?.urls || (!data.video.urls['1080p'] && !data.video.urls['720p'] && !data.video.urls['480p'])) {
+      this.loadError = 'Video has no processed streams yet (urls missing). It may still be processing.';
+      return;
+    }
+    this.object = {
+      username: this.localstorage.teacher_get('teacher_username'),
+      email: this.localstorage.teacher_get('teacher_email'),
+      query_token: this.localstorage.teacher_get('teacher_query_token'),
+      ...data
+    }
+    this.isloading = true;
+  },
+  error: (err) => {
+    this.loadError = err?.message || 'Failed to load video. Please retry.';
+  }
 })
 
   }

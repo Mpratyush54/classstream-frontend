@@ -12,9 +12,16 @@ export class StudentVideoService {
   model1: any;
   model2: any;
   constructor(private http: HttpClient , private Routes: Router, private localstorage :StogageService) { }
-  usernames = this.localstorage.student_get('student_username')  
-  emails =  this.localstorage.student_get('student_email') 
-  query_tokens = this.localstorage.student_get('student_query_token')  
+  // Read credentials lazily at call time — constructor snapshot goes stale after login
+  get usernames(): string {
+    try { return this.localstorage.student_get('student_username') ?? ''; } catch { return ''; }
+  }
+  get emails(): string {
+    try { return this.localstorage.student_get('student_email') ?? ''; } catch { return ''; }
+  }
+  get query_tokens(): string {
+    try { return this.localstorage.student_get('student_query_token') ?? ''; } catch { return ''; }
+  }
 
   sendmessage(video_id:Number , video_class:number){
     this.model1 = video_id

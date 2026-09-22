@@ -42,10 +42,12 @@ export class NavigationService {
       // Otherwise, just hide the overlay (e.g., closed via Esc)
       this.showSearchOverlay.set(false);
     }
-  } constructor(private zone: NgZone,private localsotage:StogageService) {
-    console.log(this.localsotage.teacher_get('teacher_username'));
-    console.log(this.localsotage.student_get('stu_username'));
-    if(this.localsotage.teacher_get('teacher_username')){
+  }   constructor(private zone: NgZone,private localsotage:StogageService) {
+    let teacherUser = '';
+    let studentUser = '';
+    try { teacherUser = this.localsotage.teacher_get('teacher_username') || ''; } catch { teacherUser = ''; }
+    try { studentUser = this.localsotage.student_get('student_username') || ''; } catch { studentUser = ''; }
+    if(teacherUser){
        this.mainMenu = [
     { name: 'Dashboard', icon: this.getIconSvg('dashboard'), url: '/teacher' },
     { name: 'Videos', icon: this.getIconSvg('videos'), url: '/teacher/videos' },
@@ -54,8 +56,7 @@ export class NavigationService {
     { name: 'Live', icon: this.getIconSvg('live'), url: '/teacher/live' },
   ];
 
-    }else if(this.localsotage.student_get('student_username')){
-      console.log(this.localsotage.student_get('username'));
+    }else if(studentUser){
       
   this.mainMenu = [
     { name: 'Dashboard', icon: this.getIconSvg('dashboard'), url: '/student' },
@@ -69,36 +70,29 @@ export class NavigationService {
   // ];
     }
     // Listen to router events to automatically set the active item
+    // Guard: mainMenu/academicMenu may be undefined when logged out
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      const allMenuItems = [...this.mainMenu, ...this.academicMenu];
+      const allMenuItems = [...(this.mainMenu || []), ...(this.academicMenu || [])];
+      if (!allMenuItems.length) return;
 
       // Sort items by URL length descending to find the most specific match first
-      const sortedItems = allMenuItems.sort((a, b) => b.url.length - a.url.length);
+      const sortedItems = [...allMenuItems].sort((a, b) => b.url.length - a.url.length);
 
       const matchingItem = sortedItems.find(item => event.urlAfterRedirects.startsWith(item.url));
 
       this.activeItem.set(matchingItem?.name || 'Dashboard');
     });
+    // Single debounced resize listener (was 2 listeners + logs on every pixel)
+    let resizeTimer: any = null;
     window.addEventListener('resize', () => {
-      this.zone.run(() => {
-        const width = window.innerWidth;
-        this._width.set(width);
-
-        console.log('raw window.innerWidth', width);
-        console.log('📱 isMobileSignal:', this.isMobileSignal()); // now correct ✅
-      });
-    });
-
-    window.addEventListener('resize', () => {
-      console.log('raw window.innerWidth', window.innerWidth);
-      console.log('📱 isMobileSignal:', this.isMobileSignal());
-
-    });
-
-    effect(() => {
-      console.log('📱 isMobileSignal:', this.isMobileSignal());
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        this.zone.run(() => {
+          this._width.set(window.innerWidth);
+        });
+      }, 150);
     });
 
     // Listen for browser back button action to close overlays
@@ -110,22 +104,24 @@ export class NavigationService {
 
 
   pillNavItems = computed(() => {
+    const menu = this.mainMenu || [];
     return [
-      this.mainMenu.find(i => i.name === 'Dashboard'),
-      this.mainMenu.find(i => i.name === 'Videos'),
-      this.mainMenu.find(i => i.name === 'Notes'),
+      menu.find(i => i.name === 'Dashboard'),
+      menu.find(i => i.name === 'Videos'),
+      menu.find(i => i.name === 'Notes'),
       { name: 'More', icon: this.getIconSvg('more'), url: 'more' }
     ].filter(Boolean) as MenuItem[];
   });
   // Computed signal to derive the items for the mobile bottom nav
   mobileNavItems = computed(() => {
-    const dashboardItem = this.mainMenu.find(item => item.name === 'Dashboard');
-    const currentActiveItem = [...this.mainMenu, ...this.academicMenu].find(item => item.name === this.activeItem());
+    const menu = this.mainMenu || [];
+    const dashboardItem = menu.find(item => item.name === 'Dashboard');
+    const currentActiveItem = [...menu, ...(this.academicMenu || [])].find(item => item.name === this.activeItem());
     const moreItem = { name: 'More', icon: this.getIconSvg('more'), url: 'more' };
 
     let middleItem = (currentActiveItem && currentActiveItem.name !== 'Dashboard')
       ? currentActiveItem
-      : this.mainMenu.find(item => item.name === 'Videos');
+      : menu.find(item => item.name === 'Videos');
 
     return [dashboardItem, middleItem, moreItem].filter(Boolean) as MenuItem[];
   });

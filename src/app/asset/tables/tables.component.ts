@@ -82,9 +82,6 @@ export class TablesComponent implements AfterViewInit {
     // Connect sort/paginator AFTER view init for desktop table
     if (this.sort) this.dataSource.sort = this.sort;
     if (this.desktopPaginator) this.dataSource.paginator = this.desktopPaginator;
-      console.log('Mat table columns defined:', this.displayedColumnsKeys);
-  console.log('Mat table containers in template:', document.querySelectorAll('[matcolumndef]').length);
-
   }
 
   /** Setup displayed columns, merge action buttons, and hydrate data source */

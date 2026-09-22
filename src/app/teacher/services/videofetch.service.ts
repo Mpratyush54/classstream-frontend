@@ -14,9 +14,16 @@ export class VideofetchService {
   model2: any;
 
   constructor(private http:HttpClient ,private Routes:Router ,private localstorage :StogageService) { }
-private readonly   usernames = this.localstorage.teacher_get('teacher_username')
-private readonly   emails = this.localstorage.teacher_get('teacher_email')
-private readonly   query_tokens = this.localstorage.teacher_get('teacher_query_token')
+  // Read credentials lazily at call time — constructor snapshot goes stale after login
+  private get usernames(): string {
+    try { return this.localstorage.teacher_get('teacher_username') ?? ''; } catch { return ''; }
+  }
+  private get emails(): string {
+    try { return this.localstorage.teacher_get('teacher_email') ?? ''; } catch { return ''; }
+  }
+  private get query_tokens(): string {
+    try { return this.localstorage.teacher_get('teacher_query_token') ?? ''; } catch { return ''; }
+  }
   
 
   sendmessage(video_id:Number , video_class:number){

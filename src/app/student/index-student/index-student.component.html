@@ -1,1 +1,15 @@
- <h1 class="center">Hello, gfdvckjnrfdncnjkgfdvcjkndvcx ij</h1>
+  <h1 class="center">Hello, {{ name || 'Student' }}</h1>
+  <div class="dashboard-grid">
+    <a class="dash-card" routerLink="/student/videos">
+      <h3>Videos</h3>
+      <p>Watch lessons</p>
+    </a>
+    <a class="dash-card" routerLink="/student/notes">
+      <h3>Notes</h3>
+      <p>Read notes</p>
+    </a>
+    <a class="dash-card" routerLink="/student/live">
+      <h3>Live</h3>
+      <p>Join live class</p>
+    </a>
+  </div>

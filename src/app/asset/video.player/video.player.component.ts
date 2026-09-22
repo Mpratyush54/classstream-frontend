@@ -229,8 +229,20 @@ if (emeEvents?.KEY_ERROR)
     document.addEventListener('mouseup', this.boundDocumentMouseUp);
   }
 
+  /** Visible error surfaced to wrapper via `errorMessage` binding */
+  errorMessage: string | null = null;
+
   private readyToInitialize(): boolean {
-    return !!this.mainVideo && !!this.data_object?.video?.urls?.['1080p'];
+    const urls = this.data_object?.video?.urls;
+    return !!this.mainVideo && !!(urls?.['1080p'] || urls?.['720p'] || urls?.['480p']);
+  }
+
+  private firstAvailableQuality(): string {
+    const urls = this.data_object?.video?.urls || {};
+    if (urls['1080p']) return '1080p';
+    if (urls['720p']) return '720p';
+    if (urls['480p']) return '480p';
+    return '1080p';
   }
 /** 🌐 Automatically choose playback quality based on network speed
  *  - Respects manual user selection (touchedCustomVideoQuality)
@@ -265,12 +277,17 @@ private getPreferredQuality(): string {
    * ============================================================== */
 private async initializeDash(): Promise<void> {
   try {
-    const selectedQuality = this.getPreferredQuality();
+    this.errorMessage = null;
+    let selectedQuality = this.getPreferredQuality();
+    const data = this._data_object;
+    // Preferred quality may not be processed yet — fall back to first available MPD
+    if (!data?.video?.urls?.[selectedQuality]) {
+      selectedQuality = this.firstAvailableQuality();
+    }
     this.currentQuality = selectedQuality;
 
-    const data = this._data_object;
     const rawUrl = data?.video?.urls?.[selectedQuality];
-    if (!rawUrl) throw new Error(`Video URL missing for ${selectedQuality}`);
+    if (!rawUrl) throw new Error(`Video URL missing for ${selectedQuality}. Available: ${Object.keys(data?.video?.urls || {}).join(', ') || 'none'}`);
 
       const videoUrl = this.absMedia(rawUrl);
       console.log(`🚀 Initializing DASH for quality: ${selectedQuality}`, videoUrl);
@@ -286,8 +303,8 @@ if (!matchingKey) {
 console.log(selectedQuality);
 
       // 🎯 Fetch key from backend
-      const { kid, key } = await this.fetchVideoKey(data.video.id, selectedQuality, matchingKey.kid,matchingKey.keyHex);
-    if (!kid || !key) throw new Error('Missing KID or KEY from backend');
+      const { kid, key } = await this.fetchVideoKey(data.video.id, selectedQuality, matchingKey.kid);
+    if (!kid || !key) throw new Error('Missing KID or KEY from backend — check /video/get-key and Mongo key logs');
 
     // Convert to Base64URL form for ClearKey
     const kidB64 = kid;
@@ -299,11 +316,39 @@ console.log(selectedQuality);
 
     this.player.attachSource(videoUrl);
 
-    console.log(`✅ DASH initialized with dynamic key`, { selectedQuality, clearkeys });
+    console.log(`✅ DASH initialized with dynamic key`, { selectedQuality });
 
     this.attachUiListeners();
-  } catch (err) {
+  } catch (err: any) {
+    this.errorMessage = err?.message || 'Failed to initialize video player';
     console.error('❌ initializeDash crash:', err);
+  }
+}
+
+/** Switch quality at runtime: re-fetch ClearKey for the new quality, then re-attach */
+private async switchQuality(quality: '1080p' | '720p' | '480p', preserveTime = true): Promise<void> {
+  try {
+    const data = this._data_object;
+    const rawUrl = data?.video?.urls?.[quality];
+    if (!rawUrl) throw new Error(`Video URL missing for ${quality}`);
+    const matchingKey = (data.keys || []).find((item: any) => item.quality === quality);
+    if (!matchingKey) throw new Error(`No matching KID found for quality: ${quality}`);
+    const t = preserveTime ? this.mainVideo.currentTime : 0;
+    const { kid, key } = await this.fetchVideoKey(data.video.id, quality, matchingKey.kid);
+    if (!kid || !key) throw new Error('Missing KID or KEY from backend');
+    this.player.setProtectionData({ 'org.w3.clearkey': { clearkeys: { [kid]: key } } });
+    this.currentQuality = quality;
+    this.player.attachSource(this.absMedia(rawUrl));
+    // restore playback position once manifest is parsed
+    // NOTE: dash.js typings expose MANIFEST_LOADED, not MANIFEST_PARSED — use string literal via any-cast
+    const onParsed = () => {
+      try { this.mainVideo.currentTime = t; } catch {}
+      (this.player as any).off('manifestParsed', onParsed);
+    };
+    (this.player as any).on('manifestParsed', onParsed);
+  } catch (err: any) {
+    this.errorMessage = err?.message || 'Failed to switch quality';
+    console.error('❌ switchQuality crash:', err);
   }
 }
 
@@ -415,24 +460,26 @@ console.log(selectedQuality);
       this.qualityoptions.querySelectorAll('li').forEach((li) => {
         li.addEventListener('click', () => {
           const sel = Number((li as HTMLElement).dataset['speed'] || '4');
-          const t = this.mainVideo.currentTime;
 
-          // 4 Auto (1080 manifest with ABR), 3 1080p, 2 720p, 1 480p
+          // 4 Auto (first available manifest with ABR), 3 1080p, 2 720p, 1 480p
+          // NOTE: must re-fetch ClearKey for the new quality before attachSource
           if (sel === 4) {
             this.touchedCustomVideoQuality = false;
-            this.player.attachSource(this.absMedia(this.data_object.video.urls['1080p']));
+            void this.switchQuality(this.firstAvailableQuality() as any, true);
           } else if (sel === 3) {
             this.touchedCustomVideoQuality = true;
-            this.player.attachSource(this.absMedia(this.data_object.video.urls['1080p']));
+            this.currentQuality = '1080p';
+            void this.switchQuality('1080p', true);
           } else if (sel === 2) {
             this.touchedCustomVideoQuality = true;
-            this.player.attachSource(this.absMedia(this.data_object.video.urls['720p']));
+            this.currentQuality = '720p';
+            void this.switchQuality('720p', true);
           } else if (sel === 1) {
             this.touchedCustomVideoQuality = true;
-            this.player.attachSource(this.absMedia(this.data_object.video.urls['480p']));
+            this.currentQuality = '480p';
+            void this.switchQuality('480p', true);
           }
 
-          this.mainVideo.currentTime = t;
           this.qualityoptions.querySelector('.active')?.classList?.remove('active');
           li.classList.add('active');
         });
@@ -690,21 +737,14 @@ private hexToBase64Url(hex: string): string {
 private async fetchVideoKey(
   videoId: string,
   quality: string,
-  kid: string,
-  keyHex:string
+  kid: string
 ): Promise<{ kid: string; key: string }> {
   try {
     const licenseUrl = `${environment.baseurl}video/get-key`;
 
-    // 🌍 Get IP
-    let ipAddress = 'unknown';
-    try {
-      const ipRes = await fetch('https://api64.ipify.org?format=json');
-      const ipJson = await ipRes.json();
-      ipAddress = ipJson.ip;
-    } catch (e) {
-      console.warn('⚠️ Could not get IP address:', e);
-    }
+    // 🌍 IP: let the backend use socket/forwarded IP — the old ipify call blocked
+    // every playback by 1-2s and is unnecessary (backend falls back to req.socket).
+    let ipAddress = '';
 
     // 💻 Extract environment info
     const userAgent = navigator.userAgent || 'unknown';
@@ -719,12 +759,11 @@ private async fetchVideoKey(
     const email = this.data_object?.email || 'unknown';
     const query_token = this.data_object?.query_token || '';
 
-    // 📦 Prepare final payload
+    // 📦 Prepare final payload — backend expects `kids` as array of dummy KIDs
     const payload = {
-      "kids":kid,                 // ✅ Correct key ID
-      keyHex:[keyHex],                 // ✅ Correct key ID
-      videoId,             // string
-      quality,             // e.g. "1080p"
+      kids: [kid],
+      videoId,
+      quality,
       username,
       email,
       query_token,

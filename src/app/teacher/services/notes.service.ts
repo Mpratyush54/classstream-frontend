@@ -13,10 +13,17 @@ export class NotesService {
 
   constructor(private http: HttpClient, private Routes: Router,private localstorage :StogageService) { }
   // teacher/notes
-  json = 'Server faild to respond . Please report us at <a> link</a>' 
- private readonly  usernames = this.localstorage.teacher_get('teacher_username')
- private readonly  emails = this.localstorage.teacher_get('teacher_email')
- private readonly  query_tokens = this.localstorage.teacher_get('teacher_query_token')
+  json = 'Server faild to respond . Please report us at <a> link</a>'
+  // Lazily read credentials — constructor snapshot goes stale after login
+  private get usernames(): string {
+    try { return this.localstorage.teacher_get('teacher_username') ?? ''; } catch { return ''; }
+  }
+  private get emails(): string {
+    try { return this.localstorage.teacher_get('teacher_email') ?? ''; } catch { return ''; }
+  }
+  private get query_tokens(): string {
+    try { return this.localstorage.teacher_get('teacher_query_token') ?? ''; } catch { return ''; }
+  }
 
 
   videos_without_file(data){

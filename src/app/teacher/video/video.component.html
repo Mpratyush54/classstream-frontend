@@ -28,11 +28,12 @@
         <h1 class="" style="text-align: center;"> {{meassage}}</h1>
     </div>
 
-    <app-tables *ngIf=" model2.length > 0" [data]="model2" [columns]="displayedColumns"
+    <app-tables *ngIf="model2?.length > 0" [data]="model2" [columns]="displayedColumns"
         (buttonClick)="handleButtonClick($event)">
     </app-tables>
-    <app-tables *ngIf=" model.length > 0" [data]="model" [columns]="displayedColumns"
+    <app-tables *ngIf="model?.length > 0" [data]="model" [columns]="displayedColumns"
         (buttonClick)="handleButtonClick($event)">
     </app-tables>
+    <p *ngIf="!(model?.length > 0) && !(model2?.length > 0)" class="no-data">No videos found</p>
 
 </div>

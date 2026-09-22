@@ -1,8 +1,13 @@
 
         <div class="main-content ">
 
-
-            <app-video-player  [data_object]="object" ></app-video-player>
+            <div *ngIf="loadError" class="alert alert-danger m-3" role="alert">
+                {{ loadError }}
+            </div>
+            <div *ngIf="!isloading && !loadError" class="text-center p-4">
+                Loading video…
+            </div>
+            <app-video-player *ngIf="isloading" [data_object]="object" ></app-video-player>
 
             <!-- <div mat-card-image plyr [plyrPlaysInline]="true" [plyrCrossOrigin]="true" [plyrDriver]="hlsjsDriver1" [plyrOptions]="options" [plyrSources]="sources" [plyrPoster]="poster" (plyrInit)="plyr1 = $event" (plyrLanguageChange)="languageChanged(hlsjsDriver1, plyr1)"></div> -->
         </div>

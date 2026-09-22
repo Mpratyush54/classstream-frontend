@@ -10,11 +10,15 @@ import { StogageService } from 'src/app/services/stogage.service';
 })
 export class IndexStudentComponent implements OnInit {
 
+  name = '';
+
   constructor(private titleService:Title, private localsotage:StogageService) { }
 
   ngOnInit(): void {
- var   title = this.localsotage.student_get('student_username')
-    this.titleService.setTitle(`Welcome, ${title}`);
+    try {
+      this.name = this.localsotage.student_get('student_name') || this.localsotage.student_get('student_username') || '';
+    } catch { this.name = ''; }
+    this.titleService.setTitle(`Welcome, ${this.name || 'Student'}`);
 
   }
 
