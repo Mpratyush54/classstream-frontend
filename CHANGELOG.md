@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/Mpratyush54/classstream-frontend/compare/v1.1.2...v1.1.3) (2026-09-22)
+
+
+### Bug Fixes
+
+* remove duplicate credential fields in teacher NotificationService (broke ng build) ([4563323](https://github.com/Mpratyush54/classstream-frontend/commit/4563323711a77a33f0be3aa4d021e0e39dcf63c0))
+
 ## [1.1.2](https://github.com/Mpratyush54/classstream-frontend/compare/v1.1.1...v1.1.2) (2026-09-22)
 
 
