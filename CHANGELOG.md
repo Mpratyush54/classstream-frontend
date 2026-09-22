@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/Mpratyush54/classstream-frontend/compare/v1.1.0...v1.1.1) (2026-09-22)
+
+
+### Bug Fixes
+
+* video player key flow + quality re-key, lazy auth credentials, null-safe storage, dashboard content, notes/live lists, nav crash, loader flicker, table cards layout ([7d4b3f3](https://github.com/Mpratyush54/classstream-frontend/commit/7d4b3f3669da5d0acd11147391f653ad4785100a))
+
 # [1.1.0](https://github.com/Mpratyush54/classstream-frontend/compare/v1.0.2...v1.1.0) (2025-12-04)
 
 
