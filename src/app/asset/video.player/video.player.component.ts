@@ -10,11 +10,13 @@ import {
   OnDestroy,
 } from '@angular/core';
 import * as dashjs from 'dashjs';
+import { CommonModule } from '@angular/common';
 import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-video-player',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './video.player.component.html',
   styleUrls: ['./video.player.component.css'],
 })
@@ -24,14 +26,55 @@ export class VideoPlayerComponent implements AfterViewInit, OnChanges, OnDestroy
   /** match your HTML: <video id="my-video" #mainVideo> */
   @ViewChild('mainVideo', { static: false }) videoRef?: ElementRef<HTMLVideoElement>;
 currentQuality
+  /** Header metadata + artwork, bound in the template (were hardcoded before) */
+  videoTitle = '';
+  videoChapter = '';
+  videoClass = '';
+  posterUrl = '';
+  thumbBase = '';
+
   @Input()
   set data_object(data: any) {
     this._data_object = data;
+    this.populateMetadata();
     // try init if view is ready
     if (this.readyToInitialize() && !this.initialized) {
       this.initializeDash();
       this.initialized = true;
     }
+  }
+
+  /** Fill title/chapter/poster/thumbnail base from issue-key payload */
+  private populateMetadata(): void {
+    const v = this._data_object?.video || {};
+    this.videoTitle = v.title || '';
+    this.videoChapter = v.chapterName || v.ChapterName || '';
+    this.videoClass = v.class != null && v.class !== '' ? `Class ${v.class}` : '';
+    // Poster: explicit poster field, else first generated thumbnail
+    const firstUrl = v.urls?.['1080p'] || v.urls?.['720p'] || v.urls?.['480p'] || '';
+    this.thumbBase = this.deriveThumbBase(firstUrl);
+    const rawPoster = v.poster || v.url_thumnail || '';
+    this.posterUrl = rawPoster && rawPoster !== '0' && rawPoster !== "'0'"
+      ? this.absMedia(rawPoster)
+      : (this.thumbBase ? `${this.thumbBase}001.jpg` : '');
+    if (this.mainVideo && this.posterUrl) {
+      this.mainVideo.poster = this.posterUrl;
+    }
+  }
+
+  /** `/assets/<id>/1080p/1080p.mpd` -> `<media_url>/assets/<id>/thumbnails/thumb_` */
+  private deriveThumbBase(mpdUrl: string): string {
+    if (!mpdUrl) return '';
+    const m = mpdUrl.replace(/\/[^/]+\/[^/]+\.mpd(\?.*)?$/, '/thumbnails/thumb_');
+    if (m === mpdUrl) return '';
+    return this.absMedia(m);
+  }
+
+  /** Preview thumb for a given second (processor emits thumb_001.jpg every 5s) */
+  previewThumbFor(timeSec: number): string {
+    if (!this.thumbBase || !isFinite(timeSec) || timeSec < 0) return '';
+    const n = Math.max(1, Math.floor(timeSec / 5) + 1);
+    return `${this.thumbBase}${String(n).padStart(3, '0')}.jpg`;
   }
   get data_object(): any {
     return this._data_object;
@@ -573,8 +616,10 @@ private async switchQuality(quality: '1080p' | '720p' | '480p', preserveTime = t
 
     const imgInSpan = this.progressArea.querySelector('.image-thumnail img') as HTMLImageElement;
     if (imgInSpan) {
-      const imgNo = Math.max(1, Math.floor(previewTime / 10));
-      imgInSpan.src = `/assets/Dash/img/image_${String(imgNo).padStart(3, '0')}.jpg`;
+      const src = this.previewThumbFor(previewTime);
+      if (src && imgInSpan.getAttribute('src') !== src) {
+        imgInSpan.src = src;
+      }
     }
 
     if (this.isScrubbing) this.onDragScrub(e);
@@ -629,8 +674,10 @@ private async switchQuality(quality: '1080p' | '720p' | '480p', preserveTime = t
     }
 
     if (this.thumnailimg) {
-      const imgNo = Math.max(1, Math.floor(this.mainVideo.currentTime / 10));
-      this.thumnailimg.src = `/assets/Dash/img/image_${String(imgNo).padStart(3, '0')}.jpg`;
+      const src = this.previewThumbFor(this.mainVideo.currentTime);
+      if (src && this.thumnailimg.getAttribute('src') !== src) {
+        this.thumnailimg.src = src;
+      }
     }
   }
 

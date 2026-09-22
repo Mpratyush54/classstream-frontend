@@ -9,6 +9,8 @@ export interface VideoURL {
   video: {
     id: number; title: string,
     urls: { '1080p': string; '720p': string; '480p': string };
+    chapterName?: string; chapterNumber?: string | number;
+    class?: string | number; poster?: string;
 
   };
   ImageURL: { ImageUrl: string };
